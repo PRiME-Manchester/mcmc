@@ -1,0 +1,30 @@
+# To boot and reset a 1 board machine, remember:
+ybug 192.168.x.1 -bmp 192.168.x.0
+reset
+boot scamp.boot spin5.conf
+@ dma_test3.ybug
+
+# To boot and reset a 3 board machine, remember:
+ybug 192.168.x.1 -bmp 192.168.x.0/0-2
+reset
+boot scamp.boot spin5-12x12.conf
+@ dma_test3.ybug
+
+# To boot and reset a 6 board machine, remember:
+ybug 192.168.3.1 -bmp 192.168.3.0/0-5
+reset
+boot scamp.boot spin6b.conf
+@ dma_test3.ybug
+
+# To boot and reset a 24 board machine, remember:
+ybug 192.168.x.1 -bmp 192.168.x.0/0-23
+reset
+boot scamp.boot spin5-24x12.conf
+@ dma_test3.ybug
+
+# To boot and reset a 120 board machine, remember:
+ybug 192.168.x.1 -bmp 192.168.x.0/0-119
+reset
+boot scamp.boot spin-105.conf
+@ dma_test3.ybug
+

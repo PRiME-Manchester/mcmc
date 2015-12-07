@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/ -->
+<html lang="en" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/count.json"></script><script async="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/count(1).json"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://darrenjw.wordpress.com/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="https://s0.wp.com/wp-content/themes/pub/twentyfifteen/js/html5.js"></script>
+	<![endif]-->
+	<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>MCMC programming in R, Python, Java and C | Darren Wilkinson's research blog</title>
+<link rel="alternate" type="application/rss+xml" title="Darren Wilkinson&#39;s research blog » Feed" href="https://darrenjw.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Darren Wilkinson&#39;s research blog » Comments Feed" href="https://darrenjw.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Darren Wilkinson&#39;s research blog » MCMC programming in R, Python, Java and C Comments Feed" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="twentyfifteen-fonts-css" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="all-css-2" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource(1)" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentyfifteen-ie-css'  href='https://s0.wp.com/wp-content/themes/pub/twentyfifteen/css/ie.css?m=1421363535g&#038;ver=20141010' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='twentyfifteen-ie7-css'  href='https://s0.wp.com/wp-content/themes/pub/twentyfifteen/css/ie7.css?m=1418225460g&#038;ver=20141010' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="all-css-6" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource(2)" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script><style type="text/css"></style>
+<script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource(3)"></script>
+<link rel="stylesheet" id="all-css-0" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://darrenjw.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="(Yet another) introduction to R and Bioconductor" href="https://darrenjw.wordpress.com/2010/01/30/yet-another-introduction-to-r-and-bioconductor/">
+<link rel="next" title="The last Valencia meeting on Bayesian Statistics and the future of Bayesian computation" href="https://darrenjw.wordpress.com/2010/06/10/the-last-valencia-meeting-on-bayesian-statistics-and-the-future-of-bayesian-computation/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog.html">
+<link rel="shortlink" href="http://wp.me/pB0wL-1f">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Fdarrenjw.wordpress.com%2F2010%2F04%2F28%2Fmcmc-programming-in-r-python-java-and-c%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Fdarrenjw.wordpress.com%2F2010%2F04%2F28%2Fmcmc-programming-in-r-python-java-and-c%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="MCMC programming in R, Python, Java and C">
+<meta property="og:url" content="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/">
+<meta property="og:description" content="EDIT 16/7/11 - this post has now been largely superceded by a new post! MCMC Markov chain Monte Carlo (MCMC) is a powerful simulation technique for exploring high-dimensional probability distributi...">
+<meta property="article:published_time" content="2010-04-28T06:27:00+00:00">
+<meta property="article:modified_time" content="2011-07-16T18:44:01+00:00">
+<meta property="og:site_name" content="Darren Wilkinson&#39;s research blog">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://darrenjw.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://darrenjw.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://darrenjw.wordpress.com/osd.xml" title="Darren Wilkinson&#39;s research blog">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+<meta name="application-name" content="Darren Wilkinson&#39;s research blog"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Statistics, computing, data science, Bayes, stochastic modelling, systems biology and bioinformatics"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://darrenjw.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="MCMC programming in R, Python, Java and C | Darren Wilkinson&#39;s research blog on WordPress.com">
+<meta name="description" content="EDIT 16/7/11 - this post has now been largely superceded by a new post! MCMC Markov chain Monte Carlo (MCMC) is a powerful simulation technique for exploring high-dimensional probability distributions. It is particularly useful for exploring posterior probability distributions that arise in Bayesian statistics. Although there are some generic tools (such as WinBugs and JAGS)…">
+		<script type="text/javascript" src="https://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+		<script type="text/javascript">
+		try { amznads.getAds("3033"); } catch(e) { /* ignore */ }
+		</script>
+		<script type="text/javascript">
+		var a9_p = amznads.getKeys(),
+		_ipw_custom = {
+			wordAds: '0',
+			adSafe: '1',
+			domain: 'darrenjw.wordpress.com',
+			pageURL: 'https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/'
+		};
+		if("undefined"!=typeof a9_p&&""!=a9_p&&null!==a9_p&&"[object Array]"===Object.prototype.toString.call(a9_p)){var a="",b=0,c=a9_p.length;a9_p.sort();for(var d=0;d<c;d++){a9_p[d-b]=a9_p[d-b].replace(/a1x6p/,"a160x600p");var e=a9_p[d-b].split("p");e[0]==a&&(a9_p.splice(d-b,1),b++);a=e[0]}_ipw_custom.amznPay=a9_p};document.close();
+		</script>		<!-- IPONWEB header script -->
+		<script type="text/javascript">
+			window.__ATA = {
+				scriptSrc: '//s.pubmine.com/showad.js',
+				slotPrefix: 'automattic-id-',
+				initAd: function(o) {
+					var o = o || {},
+						g = window,
+						d = g.document,
+						wr = d.write,
+						id = g.__ATA.id();
+					wr.call(d, '<div id="' + id + '" data-section="' + (o.sectionId || 0) + '"' + (o.type ? ('data-type="' + o.type + '"') : '') + ' ' + (o.forcedUrl ? ('data-forcedurl="' + o.forcedUrl + '"') : '') + ' style="width:' + (o.width || 0) + 'px; height:' + (o.height || 0) + 'px;">');
+					g.__ATA.displayAd(id);
+					wr.call(d, '</div>');
+				},
+				displayAd: function(id) {
+					window.__ATA.ids = window.__ATA.ids || {};
+					window.__ATA.ids[id] = 1;
+				},
+				customParams: _ipw_custom,
+				id: function() {
+					return window.__ATA.slotPrefix + (parseInt(Math.random() * 10000, 10) + 1 + (new Date()).getMilliseconds());
+				}
+			};
+			(function(d, ata) {
+				var pr = "https:" === d.location.protocol ? "https:" : "http:",
+					src = pr + ata.scriptSrc,
+					st = "text/javascript";
+				d.write('<scr' + 'ipt type="' + st + '" src="' + src + '"><\/scr' + 'ipt>');
+			})(window.document, window.__ATA);
+		</script><script type="text/javascript" src="https://s.pubmine.com/showad.js"></script>
+		<script type="text/javascript">
+		jQuery(window).ready(function () {
+			jQuery("a.wpa-about").text("About these ads");
+		});
+		</script><link rel="stylesheet" type="text/css" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/shCore.css"><link rel="stylesheet" type="text/css" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/ga.js"></script>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/services.css"></head>
+
+<body class="single single-post postid-77 single-format-standard mp6 customizer-styles-applied highlander-enabled highlander-light"><div id="StayFocusd-infobar" style="display: none; top: 0px;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#content">Skip to content</a>
+
+	<div id="sidebar" class="sidebar" style="position: fixed;">
+		<header id="masthead" class="site-header" role="banner">
+			<div class="site-branding">
+										<p class="site-title"><a href="https://darrenjw.wordpress.com/" rel="home">Darren Wilkinson's research blog</a></p>
+											<p class="site-description">Statistics, computing, data science, Bayes, stochastic modelling, systems biology and bioinformatics</p>
+									<button class="secondary-toggle">Menu and widgets</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+		
+		
+					<div id="widget-area" class="widget-area" role="complementary">
+				<aside id="rss_links-3" class="widget widget_rss_links"><h2 class="widget-title">Feeds for this blog</h2><ul><li><a href="https://darrenjw.wordpress.com/feed/" title="Subscribe to Posts">RSS - Posts</a></li><li><a href="https://darrenjw.wordpress.com/comments/feed/" title="Subscribe to Comments">RSS - Comments</a></li></ul>
+</aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h2 class="widget-title">Recent Posts</h2>		<ul>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/11/16/hofs-closures-partial-application-and-currying-to-solve-the-function-environment-problem-in-scala/">HOFs, closures, partial application and currying to solve the function environment problem in&nbsp;Scala</a>
+						</li>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/08/21/data-frames-and-tables-in-scala/">Data frames and tables in&nbsp;Scala</a>
+						</li>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/08/15/calling-r-from-scala-sbt-projects-using-rscala/">Calling R from Scala sbt projects using&nbsp;rscala</a>
+						</li>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/08/15/calling-scala-code-from-r-using-rscala/">Calling Scala code from R using&nbsp;rscala</a>
+						</li>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/04/10/index-to-first-50-posts/">Index to first 50&nbsp;posts</a>
+						</li>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/04/09/scala-for-machine-learning-book-review/">Scala for Machine Learning [book&nbsp;review]</a>
+						</li>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/01/24/calling-r-from-scala-sbt-projects/">Calling R from Scala sbt&nbsp;projects</a>
+						</li>
+					<li>
+				<a href="https://darrenjw.wordpress.com/2015/01/03/inlining-scala-breeze-code-in-r-using-jvmr-and-sbt/">Inlining Scala Breeze code in R using jvmr and&nbsp;sbt</a>
+						</li>
+				</ul>
+		</aside>		<aside id="twitter-3" class="widget widget_twitter"><h2 class="widget-title"><a href="http://twitter.com/darrenjw">@darrenjw’s twitter feed</a></h2><ul class="tweets">
+			<li>
+				RT @<a href="http://twitter.com/LinuxVoice">LinuxVoice</a>: Crikey! There's a new Raspberry Pi on sale, and it's just $5 or £4! What a time to be alive: <a href="https://www.raspberrypi.org/blog/raspberry-pi-zero/"> raspberrypi.org/blog/raspberry…</a> https:… 				<a href="http://twitter.com/darrenjw/statuses/669804369009885185" class="timesince">1&nbsp;week&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href="http://twitter.com/BBSRC">BBSRC</a>: We're reviewing <a href="http://twitter.com/search?q=%23bioscience">#bioscience</a> imaging &amp; want to hear from <a href="http://twitter.com/search?q=%23research">#research</a> community. Deadline Dec 18 <a href="http://ht.ly/UT9bz"> ht.ly/UT9bz</a> <a href="https://t.c%E2%80%A6/" rel="nofollow">https://t.c…</a> 				<a href="http://twitter.com/darrenjw/statuses/667804970729738240" class="timesince">1&nbsp;week&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href="http://twitter.com/mcallister_d">mcallister_d</a>: Calling all @<a href="http://twitter.com/BBSRC">BBSRC</a> <a href="http://twitter.com/search?q=%23postdocs">#postdocs</a>! We want to hear your views on modelling + stats + comp skills needed for <a href="http://twitter.com/search?q=%23bioscience">#bioscience</a> https:… 				<a href="http://twitter.com/darrenjw/statuses/667365840099123200" class="timesince">1&nbsp;week&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href="http://twitter.com/FP_North_East">FP_North_East</a>: Full house for the first FP North East. Big thanks to Newcastle university digital institute and Opencast software https… 				<a href="http://twitter.com/darrenjw/statuses/666979741149306880" class="timesince">2&nbsp;weeks&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				HOFs, closures, partial application and currying to solve the function environment problem in <a href="http://twitter.com/search?q=%23Scala">#Scala</a> - <a href="http://wp.me/pB0wL-qv"> wp.me/pB0wL-qv</a> 				<a href="http://twitter.com/darrenjw/statuses/666294993921957888" class="timesince">2&nbsp;weeks&nbsp;ago</a>
+			</li>
+
+			</ul></aside><aside id="jp_blogs_i_follow-2" class="widget widget_jp_blogs_i_follow"><h2 class="widget-title">Blogs I Follow</h2><ol><li><a href="http://kbroman.wordpress.com/" class="bump-view" data-bump-view="bif">The stupidest thing...</a></li><li><a href="http://radfordneal.wordpress.com/" class="bump-view" data-bump-view="bif">Radford Neal's blog</a></li><li><a href="http://johncarlosbaez.wordpress.com/" class="bump-view" data-bump-view="bif">Azimuth</a></li><li><a href="http://xianblog.wordpress.com/" class="bump-view" data-bump-view="bif">Xi'an's Og</a></li><li><a href="http://normaldeviate.wordpress.com/" class="bump-view" data-bump-view="bif">Normal Deviate</a></li></ol></aside><aside id="nav_menu-3" class="widget widget_nav_menu"><h2 class="widget-title">About</h2><div class="menu-pages-container"><ul id="menu-pages" class="menu"><li id="menu-item-1589" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1589"><a href="https://darrenjw.wordpress.com/about/">Darren Wilkinson</a></li></ul></div></aside>			</div><!-- .widget-area -->
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+<article id="post-77" class="post-77 post type-post status-publish format-standard hentry category-uncategorized tag-mcmc-programming-r-python-c-java-gsl-scipy-colt-monte-carlo">
+	
+	<header class="entry-header">
+		<h1 class="entry-title">MCMC programming in R, Python, Java and&nbsp;C</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p><i>EDIT 16/7/11 – this post has now been largely superceded by a <a href="https://darrenjw.wordpress.com/2011/07/16/gibbs-sampler-in-various-languages-revisited/">new post</a>!</i></p>
+<h2>MCMC</h2>
+<p>
+<a href="http://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov chain Monte Carlo</a> (MCMC) is a powerful simulation technique for exploring high-dimensional probability distributions. It is particularly useful for exploring posterior probability distributions that arise in Bayesian statistics. Although there are some generic tools (such as <a href="http://www.mrc-bsu.cam.ac.uk/bugs/">WinBugs</a> and <a href="http://www-fis.iarc.fr/~martyn/software/jags/">JAGS</a>) for doing MCMC, for non-standard problems it is often desirable to code up MCMC algorithms from scratch. It is then natural to wonder what programming languages might be good for this purpose. There are hundreds of programming languages one could in principle use for MCMC programming, but it is necessary to use a language with a good scientific library, including good random number generation routines. I have used a large number of programming languages over the years, but these days I mostly program in <a href="http://www.r-project.org/">R</a>, <a href="http://www.python.org/">Python</a>, <a href="http://java.sun.com/">Java</a> or <a href="http://en.wikipedia.org/wiki/C_%28programming_language%29">C</a>. I find each of these languages interesting and useful, with different strengths and weaknesses, and I find that no one of these languages dominates any of the others in all situations.
+</p>
+<h2>Example</h2>
+<p>
+For the purposes of this post we will focus on Gibbs sampling for a simple bivariate distribution defined on the half-plane <i>x</i>&gt;0.</p>
+<p>f(x,y) = k x<sup>2</sup> exp{-xy<sup>2</sup>-y<sup>2</sup>+2y-4x}</p>
+<p>The statistical motivation is not important for this post, but this is the kind of distribution which arises naturally in Bayesian inference for the mean and variance of a normal random sample. Gibbs sampling is a simple MCMC scheme which samples in turn from the full-conditional distributions. In this case, the full-conditional for <i>x</i> is Gamma(3,y<sup>2</sup>+4) and the full-conditional for <i>y</i> is N(1/(<i>x</i>+1),1/(<i>x</i>+1)). The resulting Gibbs sampling algorithm is very simple and works very efficiently, but for illustrative purposes, we will consider generating 20,000 iterations with a “thin” of 500 iterations.
+</p>
+<h2>Implementations</h2>
+<h3>R</h3>
+<p>
+Although R has many flaws, it is well suited to programming with data, and has a huge array of statistical libraries associated with it. Like many statisticians, I probably use R more than any other language in my day-to-day work. It is the language I always use for the analysis of MCMC output. It is therefore natural to think about using R for coding up MCMC algorithms. Below is a simple function to implement a Gibbs sampler for this problem.</p>
+<div><div id="highlighter_372680" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r plain">gibbs=</code><code class="r functions">function</code><code class="r plain">(N,thin)</code></div><div class="line number2 index1 alt1"><code class="r plain">{</code></div><div class="line number3 index2 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">mat=</code><code class="r functions">matrix</code><code class="r plain">(0,ncol=3,nrow=N)</code></div><div class="line number4 index3 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">mat[,1]=1:N</code></div><div class="line number5 index4 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">x=0</code></div><div class="line number6 index5 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">y=0</code></div><div class="line number7 index6 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r functions">for </code><code class="r plain">(i </code><code class="r keyword">in</code> <code class="r plain">1:N) {</code></div><div class="line number8 index7 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r functions">for </code><code class="r plain">(j </code><code class="r keyword">in</code> <code class="r plain">1:thin) {</code></div><div class="line number9 index8 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">x=</code><code class="r functions">rgamma</code><code class="r plain">(1,3,y*y+4)</code></div><div class="line number10 index9 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">y=</code><code class="r functions">rnorm</code><code class="r plain">(1,1/(x+1),1/</code><code class="r functions">sqrt</code><code class="r plain">(x+1))</code></div><div class="line number11 index10 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">}</code></div><div class="line number12 index11 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">mat[i,2:3]=</code><code class="r functions">c</code><code class="r plain">(x,y)</code></div><div class="line number13 index12 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">}</code></div><div class="line number14 index13 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">mat=</code><code class="r functions">data.frame</code><code class="r plain">(mat)</code></div><div class="line number15 index14 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r functions">names</code><code class="r plain">(mat)=</code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">"Iter"</code><code class="r plain">,</code><code class="r string">"x"</code><code class="r plain">,</code><code class="r string">"y"</code><code class="r plain">)</code></div><div class="line number16 index15 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">mat</code></div><div class="line number17 index16 alt2"><code class="r plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>This function stores the output in a data frame. It can be called and the data written out to a file as follows:</p>
+<div><div id="highlighter_411528" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r plain">writegibbs=</code><code class="r keyword">function</code><code class="r plain">(N=20000,thin=500)</code></div><div class="line number2 index1 alt1"><code class="r plain">{</code></div><div class="line number3 index2 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">mat=</code><code class="r functions">gibbs</code><code class="r plain">(N,thin)</code></div><div class="line number4 index3 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r functions">write.table</code><code class="r plain">(mat,</code><code class="r string">"data.tab"</code><code class="r plain">,row.names=</code><code class="r keyword">FALSE</code><code class="r plain">)</code></div><div class="line number5 index4 alt2"><code class="r plain">}</code></div><div class="line number6 index5 alt1"><code class="r plain">tim=</code><code class="r functions">system.time</code><code class="r plain">(</code><code class="r functions">writegibbs</code><code class="r plain">())</code></div><div class="line number7 index6 alt2"><code class="r functions">print</code><code class="r plain">(tim)</code></div></div></td></tr></tbody></table></div></div>
+<p>This also times how long the function takes to run. We will return to timings later. As already mentioned, I always analyse MCMC output in R. Below is some R code to compare the contours of the true distribution with the contours of the empirical distribution obtained by a 2d kernel smoother.</p>
+<div><div id="highlighter_705037" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r plain">fun=</code><code class="r keyword">function</code><code class="r plain">(x,y)</code></div><div class="line number2 index1 alt1"><code class="r plain">{</code></div><div class="line number3 index2 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">x*x*</code><code class="r functions">exp</code><code class="r plain">(-x*y*y-y*y+2*y-4*x)</code></div><div class="line number4 index3 alt1"><code class="r plain">}</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="r plain">mat=</code><code class="r functions">read.table</code><code class="r plain">(</code><code class="r string">"data.tab"</code><code class="r plain">,header=</code><code class="r keyword">TRUE</code><code class="r plain">)</code></div><div class="line number7 index6 alt2"><code class="r plain">op=</code><code class="r functions">par</code><code class="r plain">(mfrow=</code><code class="r functions">c</code><code class="r plain">(2,1))</code></div><div class="line number8 index7 alt1"><code class="r plain">x=</code><code class="r functions">seq</code><code class="r plain">(0,4,0.1)</code></div><div class="line number9 index8 alt2"><code class="r plain">y=</code><code class="r functions">seq</code><code class="r plain">(-2,4,0.1)</code></div><div class="line number10 index9 alt1"><code class="r plain">z=</code><code class="r functions">outer</code><code class="r plain">(x,y,fun)</code></div><div class="line number11 index10 alt2"><code class="r functions">contour</code><code class="r plain">(x,y,z,main=</code><code class="r string">"Contours of actual distribution"</code><code class="r plain">)</code></div><div class="line number12 index11 alt1"><code class="r functions">require</code><code class="r plain">(KernSmooth)</code></div><div class="line number13 index12 alt2"><code class="r plain">fit=</code><code class="r functions">bkde2D</code><code class="r plain">(</code><code class="r functions">as.matrix</code><code class="r plain">(mat[,2:3]),</code><code class="r functions">c</code><code class="r plain">(0.1,0.1))</code></div><div class="line number14 index13 alt1"><code class="r functions">contour</code><code class="r plain">(fit$x1,fit$x2,fit$fhat,main=</code><code class="r string">"Contours of empirical distribution"</code><code class="r plain">)</code></div><div class="line number15 index14 alt2"><code class="r functions">par</code><code class="r plain">(op)</code></div></div></td></tr></tbody></table></div></div>
+<p></p>
+<h3>Python</h3>
+<p>
+Python is a great general purpose programming language. In an ideal world, I would probably use Python for all of my programming needs. These days it is also a reasonable platform for scientific computing, due to the <a href="http://www.scipy.org/">scipy</a> project. It is certainly possible to develop MCMC algorithms in Python. A simple Python script for this problem can be written as follows.</p>
+<div><div id="highlighter_846459" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">import</code> <code class="python plain">random,math</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="python keyword">def</code> <code class="python plain">gibbs(N</code><code class="python keyword">=</code><code class="python value">20000</code><code class="python plain">,thin</code><code class="python keyword">=</code><code class="python value">500</code><code class="python plain">):</code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">x</code><code class="python keyword">=</code><code class="python value">0</code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">y</code><code class="python keyword">=</code><code class="python value">0</code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">"Iter&nbsp; x&nbsp; y"</code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">i </code><code class="python keyword">in</code> <code class="python functions">range</code><code class="python plain">(N):</code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python keyword">for</code> <code class="python plain">j </code><code class="python keyword">in</code> <code class="python functions">range</code><code class="python plain">(thin):</code></div><div class="line number9 index8 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">x</code><code class="python keyword">=</code><code class="python plain">random.gammavariate(</code><code class="python value">3</code><code class="python plain">,</code><code class="python value">1.0</code><code class="python keyword">/</code><code class="python plain">(y</code><code class="python keyword">*</code><code class="python plain">y</code><code class="python keyword">+</code><code class="python value">4</code><code class="python plain">))</code></div><div class="line number10 index9 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">y</code><code class="python keyword">=</code><code class="python plain">random.gauss(</code><code class="python value">1.0</code><code class="python keyword">/</code><code class="python plain">(x</code><code class="python keyword">+</code><code class="python value">1</code><code class="python plain">),</code><code class="python value">1.0</code><code class="python keyword">/</code><code class="python plain">math.sqrt(x</code><code class="python keyword">+</code><code class="python value">1</code><code class="python plain">))</code></div><div class="line number11 index10 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python plain">i,x,y</code></div><div class="line number12 index11 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;</div><div class="line number13 index12 alt2"><code class="python plain">gibbs()</code></div></div></td></tr></tbody></table></div></div>
+<p>This can be run with a command like <tt>python gibbs.py &gt; data.tab</tt>. Note that python uses a different parametrisation of the gamma distribution to R.</p>
+<h3>C</h3>
+<p>
+The language I have used most for the development of MCMC algorithms is C (usually strict ANSI C). C is fast and efficient, and gives the programmer lots of control over how computations are carried out. The <a href="http://www.gnu.org/software/gsl/">GSL</a> is an excellent scientific library for C, which includes good random number generation facilities. A program for this problem is given below.</p>
+<div><div id="highlighter_701987" class="syntaxhighlighter  cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp preprocessor">#include &lt;stdio.h&gt;</code></div><div class="line number2 index1 alt1"><code class="cpp preprocessor">#include &lt;math.h&gt;</code></div><div class="line number3 index2 alt2"><code class="cpp preprocessor">#include &lt;stdlib.h&gt;</code></div><div class="line number4 index3 alt1"><code class="cpp preprocessor">#include &lt;gsl/gsl_rng.h&gt;</code></div><div class="line number5 index4 alt2"><code class="cpp preprocessor">#include &lt;gsl/gsl_randist.h&gt;</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="cpp keyword bold">void</code> <code class="cpp plain">main()</code></div><div class="line number8 index7 alt1"><code class="cpp plain">{</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">N=20000;</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">thin=500;</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i,j;</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">gsl_rng *r = gsl_rng_alloc(gsl_rng_mt19937);</code></div><div class="line number13 index12 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">double</code> <code class="cpp plain">x=0;</code></div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">double</code> <code class="cpp plain">y=0;</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Iter x y\n"</code><code class="cpp plain">);</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(i=0;i&lt;N;i++) {</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(j=0;j&lt;thin;j++) {</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">x=gsl_ran_gamma(r,3.0,1.0/(y*y+4));</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">y=1.0/(x+1)+gsl_ran_gaussian(r,1.0/</code><code class="cpp functions bold">sqrt</code><code class="cpp plain">(x+1));</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"%d %f %f\n"</code><code class="cpp plain">,i,x,y);</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number23 index22 alt2"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>This can be compiled and run (on Linux) with commands like:</p>
+<pre>gcc -O2 -lgsl -lgslcblas gibbs.c -o gibbs
+time ./gibbs &gt; data.tab 
+</pre>
+<p></p>
+<h3>Java</h3>
+<p>
+Java is slightly nicer to code in than C, and has certain advantages over C in web application and cloud computing environments. It also has a few reasonable scientific libraries. I mainly use <a href="http://sourceforge.net/projects/parallelcolt/">Parallel COLT</a>, which (despite the name) is a general purpose scientific library, and not just for parallel applications. Using this library, code for this problem is given below.</p>
+<div><div id="highlighter_942929" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">import</code> <code class="java plain">java.util.*;</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="java keyword">class</code> <code class="java plain">Gibbs</code></div><div class="line number4 index3 alt1"><code class="java plain">{</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java keyword">static</code> <code class="java keyword">void</code> <code class="java plain">main(String[] arg)</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">{</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">int</code> <code class="java plain">N=</code><code class="java value">20000</code><code class="java plain">;</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">int</code> <code class="java plain">thin=</code><code class="java value">500</code><code class="java plain">;</code></div><div class="line number10 index9 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">cern.jet.random.tdouble.engine.DoubleRandomEngine rngEngine=</code></div><div class="line number11 index10 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">new</code> <code class="java plain">cern.jet.random.tdouble.engine.DoubleMersenneTwister(</code><code class="java keyword">new</code> <code class="java plain">Date());</code></div><div class="line number12 index11 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">cern.jet.random.tdouble.Normal rngN=</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">new</code> <code class="java plain">cern.jet.random.tdouble.Normal(</code><code class="java value">0.0</code><code class="java plain">,</code><code class="java value">1.0</code><code class="java plain">,rngEngine);</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">cern.jet.random.tdouble.Gamma rngG=</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">new</code> <code class="java plain">cern.jet.random.tdouble.Gamma(</code><code class="java value">1.0</code><code class="java plain">,</code><code class="java value">1.0</code><code class="java plain">,rngEngine);</code></div><div class="line number16 index15 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">double</code> <code class="java plain">x=</code><code class="java value">0</code><code class="java plain">;</code></div><div class="line number17 index16 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">double</code> <code class="java plain">y=</code><code class="java value">0</code><code class="java plain">;</code></div><div class="line number18 index17 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">System.out.println(</code><code class="java string">"Iter x y"</code><code class="java plain">);</code></div><div class="line number19 index18 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code> <code class="java plain">(</code><code class="java keyword">int</code> <code class="java plain">i=</code><code class="java value">0</code><code class="java plain">;i&lt;N;i++) {</code></div><div class="line number20 index19 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">for</code> <code class="java plain">(</code><code class="java keyword">int</code> <code class="java plain">j=</code><code class="java value">0</code><code class="java plain">;j&lt;thin;j++) {</code></div><div class="line number21 index20 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">x=rngG.nextDouble(</code><code class="java value">3.0</code><code class="java plain">,y*y+</code><code class="java value">4</code><code class="java plain">);</code></div><div class="line number22 index21 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">y=rngN.nextDouble(</code><code class="java value">1.0</code><code class="java plain">/(x+</code><code class="java value">1</code><code class="java plain">),</code><code class="java value">1.0</code><code class="java plain">/Math.sqrt(x+</code><code class="java value">1</code><code class="java plain">));</code></div><div class="line number23 index22 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number24 index23 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">System.out.println(i+</code><code class="java string">" "</code><code class="java plain">+x+</code><code class="java string">" "</code><code class="java plain">+y);</code></div><div class="line number25 index24 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number26 index25 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">}</code></div><div class="line number27 index26 alt2">&nbsp;</div><div class="line number28 index27 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>Assuming that Parallel COLT is in your classpath, this can be compiled and run with commands like.</p>
+<pre>javac Gibbs.java
+time java Gibbs &gt; data.tab
+</pre>
+<p></p>
+<h2>Timings</h2>
+<p>
+Complex MCMC algorithms can be <i>really</i> slow to run (weeks or months), so execution speed really does matter. So, how do these languages compare for this particular simple problem? R is the slowest, so let’s think about the speed relative to R (on my laptop). The Python code ran 2.4 times faster than R. To me, that is not really worth worrying too much about. Differences in coding style and speed-up tricks can make much bigger differences than this. So I wouldn’t choose between these two on the basis of speed differential alone. Python is likely to be nicer to develop in, but the convenience of doing the computation in R, the standard platform for statistical analysis, could nevertheless tip things in favour of R. C was the fastest, and this is the reason that most of my MCMC code development has been traditionally done in C. It was around 60 times faster than R. This difference <i>is</i> worth worrying about, and can make the difference between an MCMC code being practical to run or not. So how about Java? Many people assume that Java must be much slower than C, as it is byte-code compiled, and runs in a virtual machine. In this case it is around 40 times faster than R. This is within a factor of 2 of C. This is quite typical in my experience, and I have seen codes which run <i>faster</i> in Java. Again, I wouldn’t choose between C and Java purely on the basis of speed, but rather on speed of development and ease of deployment. Java can have advantages over C on both counts, which is why I’ve been experimenting more with Java for MCMC codes recently.
+</p>
+<h2>Summary</h2>
+<p>
+R and Python are slow, on account of their dynamic type systems, but are quick and easy to develop in. Java and C are much faster. The speed advantages of Java and C can be important in the context of complex MCMC algorithms. One possibility that is often put forward is to prototype in a dynamic language like R or Python and then port (the slow parts) to a statically typed language later. This could be time efficient, as the debugging and re-factoring can take place in the dynamic language where it is easier, then just re-coded fairly directly into the statically typed language once the code is working well. Actually, I haven’t found this to be time efficient for the development of MCMC codes. That could be just me, but it could be a feature of MCMC algorithms in that the dynamic code runs too slowly to be amenable to quick and simple debugging.</p>
+		<div class="wpcnt">
+			<div class="wpa wpmrec">
+				<a class="wpa-about" href="https://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+				<div class="u">
+					<script type="text/javascript">
+					(function(g){g.__ATA.initAd({sectionId:26942, width:300, height:250});})(window);
+					</script><div id="automattic-id-2469" data-section="26942" style="width:300px; height:250px;"></div>
+				</div>
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-77" class="share-twitter sd-button share-icon" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?share=twitter&nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-77" class="share-facebook sd-button share-icon" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?share=facebook&nb=1" target="_blank" title="Share on Facebook"><span>Facebook<span class="share-count">2</span></span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-77" class="share-linkedin sd-button share-icon" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?share=linkedin&nb=1" target="_blank" title="Click to share on LinkedIn"><span>LinkedIn<span class="share-count">1</span></span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?share=reddit&nb=1" target="_blank" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-77" class="share-google-plus-1 sd-button share-icon" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?share=google-plus-1&nb=1" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-8820167-77-566023ba237e9" data-src="//widgets.wp.com/likes/#blog_id=8820167&amp;post_id=77&amp;origin=darrenjw.wordpress.com&amp;obj_id=8820167-77-566023ba237e9" data-name="like-post-frame-8820167-77-566023ba237e9"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-8820167-77-566023ba237e9" height="55px" width="100%" frameborder="0" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource(9).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="871" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://darrenjw.wordpress.com/2011/12/30/catalogue-of-my-first-25-blog-posts/" title="Catalogue of my first 25 blog posts
+
+This is my 25th blog post, so this seems like a good time to provide an index to those first 25 posts for ease of reference. I&#39;ve covered a range of topics over my first two years of blogging, and managed to average almost one post per month, as suggested…" rel="nofollow" data-origin="77" data-position="0">Catalogue of my first 25 blog posts</a></span><span class="jp-relatedposts-post-context">With 1 comment</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="118" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://darrenjw.wordpress.com/2010/08/15/metropolis-hastings-mcmc-algorithms/" title="Metropolis-Hastings MCMC algorithms
+
+Background Over the next few months I&#39;m intending to have a series of posts on recent developments in MCMC and algorithms of Metropolis-Hastings type. These posts will assume a basic familiarity with stochastic simulation and R. For reference, I have some old notes on stochastic simulation and MCMC from a…" rel="nofollow" data-origin="77" data-position="1">Metropolis-Hastings MCMC algorithms</a></span><span class="jp-relatedposts-post-context">In "Bayesian"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="533" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://darrenjw.wordpress.com/2011/07/16/gibbs-sampler-in-various-languages-revisited/" title="Gibbs sampler in various languages (revisited)
+
+Introduction Regular readers of this blog will know that in April 2010 I published a short post showing how a trivial bivariate Gibbs sampler could be implemented in the four languages that I use most often these days (R, python, C, Java), and I discussed relative timings, and how one…" rel="nofollow" data-origin="77" data-position="2">Gibbs sampler in various languages (revisited)</a></span><span class="jp-relatedposts-post-context">In "byte-code"</span></p></div></div></div>	</div><!-- .entry-content -->
+
+	
+<div class="author-info">
+	<h2 class="author-heading">Published by</h2>
+	<div class="author-avatar">
+		<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-0">	</div><!-- .author-avatar -->
+
+	<div class="author-description">
+		<h3 class="author-title">darrenjw</h3>
+
+		<p class="author-bio">
+			I am Professor of Stochastic Modelling within the School of Mathematics &amp; Statistics at Newcastle University, UK. I am also a computational systems biologist.			<a class="author-link" href="https://darrenjw.wordpress.com/author/darrenjw/" rel="author">
+				View all posts by darrenjw			</a>
+		</p><!-- .author-bio -->
+
+	</div><!-- .author-description -->
+</div><!-- .author-info -->
+
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog.html" rel="bookmark"><time class="entry-date published" datetime="2010-04-28T07:27:00+00:00">28/04/2010</time><time class="updated" datetime="2011-07-16T19:44:01+00:00">16/07/2011</time></a></span><span class="byline"><span class="author vcard"><span class="screen-reader-text">Author </span><a class="url fn n" href="https://darrenjw.wordpress.com/author/darrenjw/">darrenjw</a></span></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="https://darrenjw.wordpress.com/tag/mcmc-programming-r-python-c-java-gsl-scipy-colt-monte-carlo/" rel="tag">MCMC programming R Python C Java GSL scipy COLT Monte Carlo</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-## -->
+
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			31 thoughts on “MCMC programming in R, Python, Java and&nbsp;C”		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-19" class="comment even thread-even depth-1 highlander-comment">
+			<article id="div-comment-19" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/b794f1fa078ac7deda97841b0283ffc7" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-b794f1fa078ac7deda97841b0283ffc7-0">						<b class="fn">elong</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-19">
+							<time datetime="2010-05-30T10:34:52+00:00">
+								30/05/2010 at 10:34							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Glad to see it.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=19#respond" onclick="return addComment.moveForm( &quot;div-comment-19&quot;, &quot;19&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to elong">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-31" class="comment odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-31" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/6b33afcb2ffdcef73492327af820b487" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-6b33afcb2ffdcef73492327af820b487-0">						<b class="fn">crchrdsn</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-31">
+							<time datetime="2010-08-07T21:31:42+00:00">
+								07/08/2010 at 21:31							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Darren, </p>
+<p>I am glad I found your blog. I recently graduated with my MS in Statistics and I am interested in learning more about statistical computing. I have programmed a Gibbs sampler for Gaussian mixture- models in R for a final project in a machine learning course. This was lot of fun to do, although R is definitely slow for this type of work (even with vectorization). I am interested in doing more of this type of stuff with compiled languages like C/C++. I have dabbled in C a bit, I wrote an empirical distribution function in C that is callable from R (I know R already has the “ecdf” function). I was wondering what books or other information sources you might recommend for someone like me to become more proficient in statistical computing? My background is in Stats. I did take a programming course in CS using C++ though. </p>
+<p>Thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=31#respond" onclick="return addComment.moveForm( &quot;div-comment-31&quot;, &quot;31&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to crchrdsn">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-32" class="comment byuser comment-author-darrenjw comment-author-is-site-member bypostauthor even thread-even depth-1 highlander-comment">
+			<article id="div-comment-32" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-1">						<b class="fn"><a href="http://www.staff.ncl.ac.uk/d.j.wilkinson/" rel="external nofollow" class="url">darrenjw</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-32">
+							<time datetime="2010-08-11T18:43:07+00:00">
+								11/08/2010 at 18:43							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I don’t know of much dealing specifically with statistical programming in C/C++. But there are quite a few decent books on scientific programming and algorithms more generally, and many of these are very relevant. Although I’m not a big fan of “Numerical recipes”, it’s not too bad a place to start. The “Matrix” book by Golub and van Loan covers linear algebra algorithms well. The source code for the GSL can give good ideas for how to approach things. After that, R source code (including, but not only, the C source) can be a good “source” of inspiration for statistical algorithms.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=32#respond" onclick="return addComment.moveForm( &quot;div-comment-32&quot;, &quot;32&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to darrenjw">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-34" class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="https://darrenjw.wordpress.com/2010/08/15/metropolis-hastings-mcmc-algorithms/" rel="external nofollow" class="url">Metropolis-Hastings MCMC algorithms « Darren Wilkinson's research blog</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-40" class="comment even thread-even depth-1 highlander-comment">
+			<article id="div-comment-40" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/6b33afcb2ffdcef73492327af820b487" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-6b33afcb2ffdcef73492327af820b487-1">						<b class="fn">crchrdsn</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-40">
+							<time datetime="2010-08-17T04:55:53+00:00">
+								17/08/2010 at 04:55							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for these suggestions. The Golub and van Loan book does look excellent. There is a new book due out next May from CRC Press called Statistical Computing in C++ and R. I will most definitely get this as well.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=40#respond" onclick="return addComment.moveForm( &quot;div-comment-40&quot;, &quot;40&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to crchrdsn">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-152" class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="https://darrenjw.wordpress.com/2010/12/14/getting-started-with-parallel-mcmc/" rel="external nofollow" class="url">Getting started with parallel MCMC « Darren Wilkinson's research blog</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-165" class="pingback even thread-even depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="https://darrenjw.wordpress.com/2010/12/30/calling-c-code-from-r/" rel="external nofollow" class="url">Calling C code from R « Darren Wilkinson's research blog</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-189" class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="http://demeshev.wordpress.com/2011/04/20/%d1%81%d0%be%d0%b2%d1%80%d0%b5%d0%bc%d0%b5%d0%bd%d0%bd%d1%8b%d0%b5-%d0%bc%d0%b5%d1%82%d0%be%d0%b4%d1%8b-%d1%81%d1%82%d0%b0%d1%82%d0%b8%d1%81%d1%82%d0%b8%d0%ba%" rel="external nofollow" class="url">Современные методы статистики | Boris Demeshev</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-194" class="comment even thread-even depth-1 highlander-comment">
+			<article id="div-comment-194" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/64fe17be5eae848971cc1595e89d8bbe" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-64fe17be5eae848971cc1595e89d8bbe-0">						<b class="fn">olani debelo</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-194">
+							<time datetime="2011-05-16T15:05:43+00:00">
+								16/05/2011 at 15:05							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>It is a good reading material</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=194#respond" onclick="return addComment.moveForm( &quot;div-comment-194&quot;, &quot;194&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to olani debelo">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-202" class="comment odd alt thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-202" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/76663234ccb49fec8d7b6d5db3c1d742" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-76663234ccb49fec8d7b6d5db3c1d742-0">						<b class="fn"><a href="http://www.kent.ac.uk/ims/personal/cerh2/index.html" rel="external nofollow" class="url">Carlos Rodriguez</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-202">
+							<time datetime="2011-05-27T15:12:11+00:00">
+								27/05/2011 at 15:12							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Darren, </p>
+<p>I am an R user as well and yes I agree for complex MCMC computations C is the best option. However, in C, when working with reversible jump MCMC methods the things get even harder because the dimension of parameters change. I am dealing with this right now and I can’t find a work around. I am using malloc, realloc etc but it does not work. Do you have any suggestion to deal with this problems.</p>
+<p>I already have the code in R but it is too slow.</p>
+<p>Cheers,<br>
+Carlos</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=202#respond" onclick="return addComment.moveForm( &quot;div-comment-202&quot;, &quot;202&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to Carlos Rodriguez">Reply</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-203" class="comment byuser comment-author-darrenjw comment-author-is-site-member bypostauthor even depth-2 parent highlander-comment">
+			<article id="div-comment-203" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-2">						<b class="fn"><a href="http://www.staff.ncl.ac.uk/d.j.wilkinson/" rel="external nofollow" class="url">darrenjw</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-203">
+							<time datetime="2011-05-27T15:35:31+00:00">
+								27/05/2011 at 15:35							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I’m not sure that I said C was the _best_ option – just that it was fast. Manual management of memory in C is one of the things which makes it difficult, but also one of the things which makes it fast. You can use malloc, realloc, etc. to solve the reversible jump problem – it does work! <span class="wp-smiley wp-emoji wp-emoji-wink" title=";-)">;-)</span> The trick is to try to keep memory allocation to the absolute minimum. eg. when you exceed your max stack size, double it. This will ensure that you quickly get to a stage where you (almost) never need to allocate more memory. This will help to keep your code fast.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=203#respond" onclick="return addComment.moveForm( &quot;div-comment-203&quot;, &quot;203&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to darrenjw">Reply</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-204" class="comment odd alt depth-3 highlander-comment">
+			<article id="div-comment-204" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/76663234ccb49fec8d7b6d5db3c1d742" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-76663234ccb49fec8d7b6d5db3c1d742-1">						<b class="fn"><a href="http://www.kent.ac.uk/ims/personal/cerh2/index.html" rel="external nofollow" class="url">Carlos Rodriguez</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-204">
+							<time datetime="2011-05-27T21:22:17+00:00">
+								27/05/2011 at 21:22							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>OK I misunderstood, you did not say that C was the best option just the fastest. I do not know if to try Java maybe I rather try FORTRAN. Yes C has that little drawback of the memory management. But after have waited 10 hours for my code to finish in R and just a few seconds or minutes in C: for me right now the priority is speed.</p>
+<p>Cheers,<br>
+Carlos</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-206" class="pingback even thread-even depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="https://darrenjw.wordpress.com/2011/06/04/java-math-libraries-and-monte-carlo-simulation-codes/" rel="external nofollow" class="url">Java math libraries and Monte Carlo simulation codes « Darren Wilkinson's research blog</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-207" class="comment odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-207" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/7e730981eb91e3f03f299fd73444e99b" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-7e730981eb91e3f03f299fd73444e99b-0">						<b class="fn">Chris L-M</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-207">
+							<time datetime="2011-06-05T06:30:34+00:00">
+								05/06/2011 at 06:30							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>On the python front, there has been a lot of progress on pypy, the python interpreter with just-in-time compilation. Using it (pypy version 1.5-alpha0) with your python example above I get raw times of 9.75-9.83seconds where the C version runs in almost exactly 2.45s so the difference is speed is only about 4x faster for C. </p>
+<p>I write most of my analyses in python and occasional dip down to C, fortran, or C++ code. As the C interfaces and other numerical library modules mature for pypy, I think it’s going to be an even more amazing tool.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=207#respond" onclick="return addComment.moveForm( &quot;div-comment-207&quot;, &quot;207&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to Chris L-M">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-223" class="comment even thread-even depth-1 highlander-comment">
+			<article id="div-comment-223" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/0715ad3e60bf3741252df366cafc3960" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-0715ad3e60bf3741252df366cafc3960-0">						<b class="fn"><a href="http://bayesianconspiracy.blogspot.com/" rel="external nofollow" class="url">Kolmogorov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-223">
+							<time datetime="2011-06-24T04:58:21+00:00">
+								24/06/2011 at 04:58							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I often use Groovy as a way to get scripting convenience (dynamic typing, no-compilation runs, etc.) for code that uses Java libraries.    In this example, the Groovy code, using the same colt library,  took 1.7 times as long as the Java program.  Often I find that good enough and just stop there, but when I need that extra 1.7x speedup, it’s a simple exercise to go through Groovy code, adding types and replacing Groovy-specific features with more verbose Java features.   If you write things in Java, it’s worth your while to experiment with Groovy as a rapid-prototyping solution.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=223#respond" onclick="return addComment.moveForm( &quot;div-comment-223&quot;, &quot;223&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to Kolmogorov">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-224" class="comment odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-224" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/21ef50638dd4196abc98256aeb13bca7" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-21ef50638dd4196abc98256aeb13bca7-0">						<b class="fn">Derek</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-224">
+							<time datetime="2011-06-24T08:43:31+00:00">
+								24/06/2011 at 08:43							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I’d echo Chris’ comments… it would really great to have an update on this blog, with the inclusion of actual times, also addressing “compiled Python” with pypy.</p>
+<p>In this case, the conclusion might be more like:</p>
+<p>“R and dynamic Python are slow, on account of their dynamic type systems, but are quick and easy to develop in. Compiled Python is both fast and easy to develop in. Java and C are much faster than dynamic Python.  However Java is only about 2.6 times faster than the compiled Python and that is not really worth worrying too much about, especially given the cost and effort of switching to another langauge.”</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=224#respond" onclick="return addComment.moveForm( &quot;div-comment-224&quot;, &quot;224&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to Derek">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-225" class="comment byuser comment-author-darrenjw comment-author-is-site-member bypostauthor even thread-even depth-1 highlander-comment">
+			<article id="div-comment-225" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-3">						<b class="fn"><a href="http://www.staff.ncl.ac.uk/d.j.wilkinson/" rel="external nofollow" class="url">darrenjw</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-225">
+							<time datetime="2011-06-24T17:39:28+00:00">
+								24/06/2011 at 17:39							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>So, I’m quite busy right now, but for a while I have been considering doing a new version of this post with additional languages and more detailed timing information. I’ll try and do it over the summer some time. I’ll be running on a 64 bit Ubuntu system. If you comment with code examples for languages you would like me to include (and/or instructions for compilation), I’ll do my best to include them.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=225#respond" onclick="return addComment.moveForm( &quot;div-comment-225&quot;, &quot;225&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to darrenjw">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-226" class="comment byuser comment-author-darrenjw comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-226" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-4">						<b class="fn"><a href="http://www.staff.ncl.ac.uk/d.j.wilkinson/" rel="external nofollow" class="url">darrenjw</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-226">
+							<time datetime="2011-06-25T19:44:40+00:00">
+								25/06/2011 at 19:44							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks to Sanjog Misra, who has just emailed me to point out that the normal full conditional used in all of the codes isn’t quite right – it should have a variance of 1/[2(1+x)], rather than 1/(1+x). It won’t change any of the conclusions, but it’s something that I’ll fix when I get around to re-writing the post.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=226#respond" onclick="return addComment.moveForm( &quot;div-comment-226&quot;, &quot;226&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to darrenjw">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-229" class="comment even thread-even depth-1 highlander-comment">
+			<article id="div-comment-229" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/21ef50638dd4196abc98256aeb13bca7" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-21ef50638dd4196abc98256aeb13bca7-1">						<b class="fn">Derek</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-229">
+							<time datetime="2011-06-29T10:49:43+00:00">
+								29/06/2011 at 10:49							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks Darren… we will wait!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=229#respond" onclick="return addComment.moveForm( &quot;div-comment-229&quot;, &quot;229&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to Derek">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-237" class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="https://darrenjw.wordpress.com/2011/07/16/gibbs-sampler-in-various-languages-revisited/" rel="external nofollow" class="url">Gibbs sampler in various languages (revisited) « Darren Wilkinson's research blog</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-241" class="comment byuser comment-author-darrenjw comment-author-is-site-member bypostauthor even thread-even depth-1 highlander-comment">
+			<article id="div-comment-241" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-5">						<b class="fn"><a href="http://www.staff.ncl.ac.uk/d.j.wilkinson/" rel="external nofollow" class="url">darrenjw</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-241">
+							<time datetime="2011-07-16T16:11:26+00:00">
+								16/07/2011 at 16:11							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>OK, so there is now a new version of this post, which includes detailed timings, PyPy, and Scala:</p>
+<p><a href="https://darrenjw.wordpress.com/2011/07/16/gibbs-sampler-in-various-languages-revisited/" rel="nofollow">https://darrenjw.wordpress.com/2011/07/16/gibbs-sampler-in-various-languages-revisited/</a></p>
+<p>Please see the new post for further details, and try to comment on the new post in preference to this one. Thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=241#respond" onclick="return addComment.moveForm( &quot;div-comment-241&quot;, &quot;241&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to darrenjw">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-447" class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="https://darrenjw.wordpress.com/2011/12/30/catalogue-of-my-first-25-blog-posts/" rel="external nofollow" class="url">Catalogue of my first 25 blog posts « Darren Wilkinson's research blog</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-485" class="pingback even thread-even depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="http://betamoore.wordpress.com/2012/02/13/statistics-made-accessible-r/" rel="external nofollow" class="url">Statistics Made Accessible – R « betamoore</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-494" class="comment odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-494" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/ae26058e6a61eda0565483d2df0dc173" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-ae26058e6a61eda0565483d2df0dc173-0">						<b class="fn"><a href="http://www.stayfnf.com/" rel="external nofollow" class="url">stayfnf</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-494">
+							<time datetime="2012-03-08T12:36:05+00:00">
+								08/03/2012 at 12:36							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>You should be a part of a contest for one of the highest quality blogs on the net. I am going to highly recommend this blog!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=494#respond" onclick="return addComment.moveForm( &quot;div-comment-494&quot;, &quot;494&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to stayfnf">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-975" class="pingback even thread-even depth-1 highlander-comment">
+			<div class="comment-body">
+				Pingback: <a href="http://recologia.wordpress.com/2012/12/28/olhando-o-mcmc-mais-de-perto/" rel="external nofollow" class="url">Olhando o MCMC mais de perto… « Recologia</a> 			</div>
+</li><!-- #comment-## -->
+		<li id="comment-993" class="comment byuser comment-author-worldofpiggy odd alt thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-993" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/fa5584554695ca4054685ea197342467" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-fa5584554695ca4054685ea197342467-0">						<b class="fn"><a href="http://www.worldofpiggy.com/" rel="external nofollow" class="url">Piggy</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-993">
+							<time datetime="2013-03-21T13:27:29+00:00">
+								21/03/2013 at 13:27							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>How do you get the conditionals for x and y?<br>
+What if I want to sample from a distribution of which I have no analytical form?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=993#respond" onclick="return addComment.moveForm( &quot;div-comment-993&quot;, &quot;993&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to Piggy">Reply</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-994" class="comment byuser comment-author-darrenjw comment-author-is-site-member bypostauthor even depth-2 highlander-comment">
+			<article id="div-comment-994" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-6">						<b class="fn"><a href="http://www.staff.ncl.ac.uk/d.j.wilkinson/" rel="external nofollow" class="url">darrenjw</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-994">
+							<time datetime="2013-03-22T08:09:32+00:00">
+								22/03/2013 at 08:09							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>You get the full conditional from the joint by regarding the joint as a function of just the variable you are interested in, with everything else getting factored into the constant of proportionality, and hopefully recognising it as being of standard form. If it is not of standard form, you may find my posts on Metropolis-Hastings sampling helpful.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=994#respond" onclick="return addComment.moveForm( &quot;div-comment-994&quot;, &quot;994&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to darrenjw">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-996" class="comment odd alt thread-even depth-1 highlander-comment">
+			<article id="div-comment-996" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/fa5584554695ca4054685ea197342467" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-fa5584554695ca4054685ea197342467-1">						<b class="fn"><a href="http://www.worldofpiggy.com/" rel="external nofollow" class="url">Piggy</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-996">
+							<time datetime="2013-03-23T17:31:28+00:00">
+								23/03/2013 at 17:31							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I think I got it. Once I have the posterior, the full conditionals are basically derived from that by keeping only the parameters I’m interested in and dropping the rest (since it would be constant wrt the parameter).<br>
+I’m gonna write a post on my blog to keep this in mind <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span></p>
+<p>Thanks very much indeed. Time to read your MH posts.<br>
+ahhh I love this blog </p>
+<p>(oo)</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=996#respond" onclick="return addComment.moveForm( &quot;div-comment-996&quot;, &quot;996&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to Piggy">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-1108" class="comment byuser comment-author-lindonslog even thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-1108" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/9847c61e276bf76bcbef7d4f51020fa7" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-9847c61e276bf76bcbef7d4f51020fa7-0">						<b class="fn"><a href="http://www.lindonslog.com/" rel="external nofollow" class="url">lindonslog</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-1108">
+							<time datetime="2013-06-29T00:28:30+00:00">
+								29/06/2013 at 00:28							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Darren,</p>
+<p>What made you opt for the GSL libraries for random number generation as opposed to other libraries, say, the R standalone library? Is there much of a speedup?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=1108#respond" onclick="return addComment.moveForm( &quot;div-comment-1108&quot;, &quot;1108&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to lindonslog">Reply</a></div>			</article><!-- .comment-body -->
+<ol class="children">
+		<li id="comment-1109" class="comment byuser comment-author-darrenjw comment-author-is-site-member bypostauthor odd alt depth-2 highlander-comment">
+			<article id="div-comment-1109" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/65099774d1b07d97740c13e5c543a9f5" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-65099774d1b07d97740c13e5c543a9f5-7">						<b class="fn"><a href="http://www.staff.ncl.ac.uk/d.j.wilkinson/" rel="external nofollow" class="url">darrenjw</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-1109">
+							<time datetime="2013-06-29T08:46:35+00:00">
+								29/06/2013 at 08:46							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>There is a significant speed-up using the GSL code over the R library code, but the main reason is that the GSL is a good full featured, widely used, well-designed, all-round scientific library.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=1109#respond" onclick="return addComment.moveForm( &quot;div-comment-1109&quot;, &quot;1109&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to darrenjw">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-5196" class="comment byuser comment-author-duyptnk even thread-even depth-1 highlander-comment">
+			<article id="div-comment-5196" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/af61d077dc1173ee68e6d06439e1d6af" class="avatar avatar-56 grav-hashed grav-hijack" height="56" width="56" id="grav-af61d077dc1173ee68e6d06439e1d6af-0">						<b class="fn"><a href="http://duyptnk.wordpress.com/" rel="external nofollow" class="url">duyptnk</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-5196">
+							<time datetime="2015-04-18T17:03:57+00:00">
+								18/04/2015 at 17:03							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Reblogged this on <a href="https://duyptnk.wordpress.com/2015/04/18/mcmc-programming-in-r-python-java-and-c/" rel="nofollow">Statistics and Other Things</a>.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/?replytocom=5196#respond" onclick="return addComment.moveForm( &quot;div-comment-5196&quot;, &quot;5196&quot;, &quot;respond&quot;, &quot;77&quot; )" aria-label="Reply to duyptnk">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+					<div id="respond" class="comment-respond js">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#respond" style="display:none;">Cancel reply</a></small></h3>				<form action="https://darrenjw.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+					<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="b27cdb857a"><input type="hidden" name="_wp_http_referer" value="/2010/04/28/mcmc-programming-in-r-python-java-and-c/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: &#39;Noto Serif&#39;, serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 23.5788px; width: 638.281px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 43px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+
+
+
+<p class="form-submit" style="display: none;"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="77" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="f474585a84"></p>
+<input type="hidden" name="genseq" value="1449141178">
+<p style="display: none;"></p>				<input type="hidden" id="ak_js" name="ak_js" value="1449141180080"></form>
+					</div><!-- #respond -->
+		<div style="clear: both"></div>
+</div><!-- .comments-area -->
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://darrenjw.wordpress.com/2010/01/30/yet-another-introduction-to-r-and-bioconductor/" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="screen-reader-text">Previous post:</span> <span class="post-title">(Yet another) introduction to R and&nbsp;Bioconductor</span></a></div><div class="nav-next"><a href="https://darrenjw.wordpress.com/2010/06/10/the-last-valencia-meeting-on-bayesian-statistics-and-the-future-of-bayesian-computation/" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="screen-reader-text">Next post:</span> <span class="post-title">The last Valencia meeting on Bayesian Statistics and the future of Bayesian&nbsp;computation</span></a></div></div>
+	</nav>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+			<a href="https://wordpress.com/themes/twentyfifteen/" title="Learn more about this theme">The Twenty Fifteen Theme</a>.			<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com</a>.
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+<!-- wpcom_wp_footer -->
+<div id="wpcom-follow-bubbles-jp_blogs_i_follow-2" class="wpcom-follow-bubbles"><div id="wpcom-bubble-jp_blogs_i_follow-2-1" class="wpcom-bubble wpcom-follow-bubble"><div class="bubble-txt"><a href="http://kbroman.wordpress.com/" class="bump-view" data-bump-view="bif">The stupidest thing...</a><p><small>Statistics, genetics, programming, academics</small></p></div></div><div id="wpcom-bubble-jp_blogs_i_follow-2-2" class="wpcom-bubble wpcom-follow-bubble"><div class="bubble-txt"><a href="http://radfordneal.wordpress.com/" class="bump-view" data-bump-view="bif">Radford Neal's blog</a><p></p></div></div><div id="wpcom-bubble-jp_blogs_i_follow-2-3" class="wpcom-bubble wpcom-follow-bubble"><div class="bubble-txt"><a href="http://johncarlosbaez.wordpress.com/" class="bump-view" data-bump-view="bif">Azimuth</a><p></p></div></div><div id="wpcom-bubble-jp_blogs_i_follow-2-4" class="wpcom-bubble wpcom-follow-bubble"><div class="bubble-txt"><a href="http://xianblog.wordpress.com/" class="bump-view" data-bump-view="bif">Xi'an's Og</a><p><small>an attempt at bloggin, nothing more...</small></p></div></div><div id="wpcom-bubble-jp_blogs_i_follow-2-5" class="wpcom-bubble wpcom-follow-bubble"><div class="bubble-txt"><a href="http://normaldeviate.wordpress.com/" class="bump-view" data-bump-view="bif">Normal Deviate</a><p><small>Thoughts on Statistics and Machine Learning</small></p></div></div></div><script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-65099774d1b07d97740c13e5c543a9f5">
+	</div>
+	<div class="grofile-hash-map-b794f1fa078ac7deda97841b0283ffc7">
+	</div>
+	<div class="grofile-hash-map-6b33afcb2ffdcef73492327af820b487">
+	</div>
+	<div class="grofile-hash-map-65099774d1b07d97740c13e5c543a9f5">
+	</div>
+	<div class="grofile-hash-map-64fe17be5eae848971cc1595e89d8bbe">
+	</div>
+	<div class="grofile-hash-map-76663234ccb49fec8d7b6d5db3c1d742">
+	</div>
+	<div class="grofile-hash-map-7e730981eb91e3f03f299fd73444e99b">
+	</div>
+	<div class="grofile-hash-map-0715ad3e60bf3741252df366cafc3960">
+	</div>
+	<div class="grofile-hash-map-21ef50638dd4196abc98256aeb13bca7">
+	</div>
+	<div class="grofile-hash-map-ae26058e6a61eda0565483d2df0dc173">
+	</div>
+	<div class="grofile-hash-map-fa5584554695ca4054685ea197342467">
+	</div>
+	<div class="grofile-hash-map-fa5584554695ca4054685ea197342467">
+	</div>
+	<div class="grofile-hash-map-9847c61e276bf76bcbef7d4f51020fa7">
+	</div>
+	<div class="grofile-hash-map-af61d077dc1173ee68e6d06439e1d6af">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/darrenjw.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/darrenjw.wordpress.com\/wp-login.php?action=logout&_wpnonce=3e874690ba","homeURL":"https:\/\/darrenjw.wordpress.com\/","postID":"77","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource(4)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -316px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Darren Wilkinson's research blog”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 247 other followers</p>
+			<p><input type="email" name="email" placeholder="Enter your email address" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="8820167">
+			<input type="hidden" name="source" value="https://darrenjw.wordpress.com/2010/04/28/mcmc-programming-in-r-python-java-and-c/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="8f15ad0fce"><input type="hidden" name="_wp_http_referer" value="/2010/04/28/mcmc-programming-in-r-python-java-and-c/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/widgets.js"></script>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/darrenjw.wordpress.com\/2010\/04\/28\/mcmc-programming-in-r-python-java-and-c\/":77};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/form.js"></script>
+<script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource(5)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/saved_resource(6)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'8820167','blog_tz':'1','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'8820167','v':'wpcom','tz':'1','user_id':'0','post':'77','subd':'darrenjw'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhRTmIuSltuLkN1bEJtUlEyViUuP3EzXUVhJkhSdlZ5a1I0RXJJK3xqaTF3MEtzLGNTbltjc1daYkZdVXFEaXJ6T3lhQ3lhLS0sSlRkaTBbWDkxemU2P1Usc0RMcnxXZE1ES1BzXWxzZS96dmxTUitxTj1DNWk9QWRPclttRDBhVCZFRXhGLUEvJjRPYy1RZ18wdHdFSFZVaEJjdUZjc2V1Qz0tdTRbNFQyaGd3Yk1rMl1tRHMmW0hXY05YMWFkZkZFSFg4MXRbJnVOVzJhMC5zSjdXZFJQL09VYUR2eX5PZ2sycDBIX1EvTGJ0N1pZdlhjUlRXOQ=='}]);
+_stq.push([ 'clickTrackerInit', '8820167', '77' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+
+<img src="./MCMC programming in R, Python, Java and C _ Darren Wilkinson's research blog_files/g.gif" id="wpstats"></body></html>

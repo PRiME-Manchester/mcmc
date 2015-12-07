@@ -1,0 +1,2113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0081)https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/count.json"></script><script async="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/count(1).json"></script>
+
+<meta name="viewport" content="width=device-width">
+<title>Using Newlib in ARM bare metal programs | Freedom Embedded</title>
+<link rel="pingback" href="https://balau82.wordpress.com/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title="Freedom Embedded » Feed" href="https://balau82.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Freedom Embedded » Comments Feed" href="https://balau82.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Freedom Embedded » Using Newlib in ARM bare metal programs Comments Feed" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource" type="text/css" media="all">
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='inuittypes-ie-css'  href='https://s0.wp.com/wp-content/themes/pub/inuit-types/css/ie.css?ver=4.4-alpha-34640' type='text/css' media='all' />
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel='stylesheet' id='inuittypes-ie6-css'  href='https://s0.wp.com/wp-content/themes/pub/inuit-types/css/ie6.css?ver=4.4-alpha-34640' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="all-css-4" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource(1)" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-5" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/global-print.css" type="text/css" media="print">
+<link rel="stylesheet" id="all-css-6" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource(2)" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script><style type="text/css"></style>
+<script type="text/javascript" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource(3)"></script>
+<link rel="stylesheet" id="all-css-0" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://balau82.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Using Ubuntu ARM cross-compiler for bare metal programming" href="https://balau82.wordpress.com/2010/12/05/using-ubuntu-arm-cross-compiler-for-bare-metal-programming/">
+<link rel="next" title="Coding styles comparison in the Open Source Software world" href="https://balau82.wordpress.com/2010/12/28/coding-styles-comparison-in-the-open-source-software-world/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/Using Newlib in ARM bare metal programs _ Freedom Embedded.html">
+<link rel="shortlink" href="http://wp.me/psbTy-bj">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Fbalau82.wordpress.com%2F2010%2F12%2F16%2Fusing-newlib-in-arm-bare-metal-programs%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Fbalau82.wordpress.com%2F2010%2F12%2F16%2Fusing-newlib-in-arm-bare-metal-programs%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Using Newlib in ARM bare metal programs">
+<meta property="og:url" content="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/">
+<meta property="og:description" content="Implementing a minimal standard C library for embedded ARM target using Newlib and the CodeSourcery toolchain, and emulating the execution with QEMU.">
+<meta property="article:published_time" content="2010-12-16T21:53:06+00:00">
+<meta property="article:modified_time" content="2012-09-23T12:27:11+00:00">
+<meta property="og:site_name" content="Freedom Embedded">
+<meta property="og:image" content="https://secure.gravatar.com/blavatar/bb5b906eefc5bd598f0e9dab79bb274f?s=200&amp;ts=1449225342">
+<meta property="og:image:width" content="200">
+<meta property="og:image:height" content="200">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image" content="https://secure.gravatar.com/blavatar/bb5b906eefc5bd598f0e9dab79bb274f?s=240">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/bceebb08f0947a4e4055391017cb5c2a?s=16" sizes="16x16">
+<link rel="icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/bceebb08f0947a4e4055391017cb5c2a?s=16" sizes="16x16">
+<link rel="apple-touch-icon-precomposed" href="https://secure.gravatar.com/blavatar/bb5b906eefc5bd598f0e9dab79bb274f?s=114">
+<link rel="openid.server" href="https://balau82.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://balau82.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://balau82.wordpress.com/osd.xml" title="Freedom Embedded">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+
+		<style>
+			@media screen and (min-width: 783px) { 
+				#wpadminbar .quicklinks li#wp-admin-bar-my-account.with-avatar > a img { 
+					margin-top: 5px; 
+				} 
+			}
+		</style>
+
+		<meta name="application-name" content="Freedom Embedded"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Balau&#39;s technical blog on open hardware, free software and security"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://balau82.wordpress.com/feed/;icon-uri=https://secure.gravatar.com/blavatar/bceebb08f0947a4e4055391017cb5c2a?s=16"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Using Newlib in ARM bare metal programs | Freedom Embedded on WordPress.com">
+<meta name="description" content="Implementing a minimal standard C library for embedded ARM target using Newlib and the CodeSourcery toolchain, and emulating the execution with QEMU.">
+		<script type="text/javascript" src="https://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+		<script type="text/javascript">
+		try { amznads.getAds("3033"); } catch(e) { /* ignore */ }
+		</script>
+		<script type="text/javascript">
+		var a9_p = amznads.getKeys(),
+		_ipw_custom = {
+			wordAds: '0',
+			adSafe: '1',
+			domain: 'balau82.wordpress.com',
+			pageURL: 'https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/'
+		};
+		if("undefined"!=typeof a9_p&&""!=a9_p&&null!==a9_p&&"[object Array]"===Object.prototype.toString.call(a9_p)){var a="",b=0,c=a9_p.length;a9_p.sort();for(var d=0;d<c;d++){a9_p[d-b]=a9_p[d-b].replace(/a1x6p/,"a160x600p");var e=a9_p[d-b].split("p");e[0]==a&&(a9_p.splice(d-b,1),b++);a=e[0]}_ipw_custom.amznPay=a9_p};document.close();
+		</script>		<!-- IPONWEB header script -->
+		<script type="text/javascript">
+			window.__ATA = {
+				scriptSrc: '//s.pubmine.com/showad.js',
+				slotPrefix: 'automattic-id-',
+				initAd: function(o) {
+					var o = o || {},
+						g = window,
+						d = g.document,
+						wr = d.write,
+						id = g.__ATA.id();
+					wr.call(d, '<div id="' + id + '" data-section="' + (o.sectionId || 0) + '"' + (o.type ? ('data-type="' + o.type + '"') : '') + ' ' + (o.forcedUrl ? ('data-forcedurl="' + o.forcedUrl + '"') : '') + ' style="width:' + (o.width || 0) + 'px; height:' + (o.height || 0) + 'px;">');
+					g.__ATA.displayAd(id);
+					wr.call(d, '</div>');
+				},
+				displayAd: function(id) {
+					window.__ATA.ids = window.__ATA.ids || {};
+					window.__ATA.ids[id] = 1;
+				},
+				customParams: _ipw_custom,
+				id: function() {
+					return window.__ATA.slotPrefix + (parseInt(Math.random() * 10000, 10) + 1 + (new Date()).getMilliseconds());
+				}
+			};
+			(function(d, ata) {
+				var pr = "https:" === d.location.protocol ? "https:" : "http:",
+					src = pr + ata.scriptSrc,
+					st = "text/javascript";
+				d.write('<scr' + 'ipt type="' + st + '" src="' + src + '"><\/scr' + 'ipt>');
+			})(window.document, window.__ATA);
+		</script><script type="text/javascript" src="https://s.pubmine.com/showad.js"></script>
+		<script type="text/javascript">
+		jQuery(window).ready(function () {
+			jQuery("a.wpa-about").text("About these ads");
+		});
+		</script><link rel="stylesheet" type="text/css" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/shCore.css"><link rel="stylesheet" type="text/css" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ga.js"></script>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/services.css"><script src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a.json" type="text/javascript"></script></head>
+
+<body class="single single-post postid-701 single-format-standard mp6 customizer-styles-applied highlander-enabled highlander-light"><div id="StayFocusd-infobar" style="display: none; top: 1829px;">
+    <img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/common/img/eye_19x19_red.png">
+    <span id="StayFocusd-infobar-msg"></span>
+    <span id="StayFocusd-infobar-links">
+        <a id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a id="StayFocusd-infobar-hide">hide once</a>
+    </span>
+</div>
+
+	<div class="wrapper">
+	
+	<div id="main_menu" class="top_menu">
+
+		<div class="fl">
+
+			<div class="menu"><ul><li class="page_item page-item-491"><a href="https://balau82.wordpress.com/about-the-blog/">About the Blog</a></li><li class="page_item page-item-2"><a href="https://balau82.wordpress.com/about-me/">About Me</a></li><li class="page_item page-item-1484"><a href="https://balau82.wordpress.com/arduino-in-c/">Arduino in C</a></li><li class="page_item page-item-1503"><a href="https://balau82.wordpress.com/stm32-on-linux/">STM32 on Linux</a></li><li class="page_item page-item-1501"><a href="https://balau82.wordpress.com/arm-emulation/">ARM emulation</a></li><li class="page_item page-item-1169"><a href="https://balau82.wordpress.com/resources/">Resources</a></li><li class="page_item page-item-611"><a href="https://balau82.wordpress.com/archive/">Archives</a></li></ul></div>
+
+		</div>
+
+
+		<div class="fr">
+
+			<span class="subscribe">
+
+			<a href="https://balau82.wordpress.com/feed/"><span class="rss-button">RSS</span></a> &nbsp;Subscribe:&nbsp;
+
+			<a href="https://balau82.wordpress.com/feed/">RSS feed</a>
+
+			</span>
+
+		</div>
+
+	</div><!-- #main_menu -->
+
+
+		<div id="container" class="container">
+
+			<div id="inuit-content" class="content content_left">
+
+								<div id="header">
+
+						<div class="blog-title"><a href="https://balau82.wordpress.com/">Freedom Embedded</a></div>
+
+						<div class="blog-description">Balau's technical blog on open hardware, free software and security</div>
+
+				</div>
+
+		
+			
+				<div id="post-701" class="single-post post-701 post type-post status-publish format-standard hentry category-embedded-software tag-arm tag-arm-none-eabi tag-bare-metal tag-codesourcery tag-cortex tag-cortex-a8 tag-gcc tag-libgcc tag-malloc tag-newlib tag-qemu tag-stdio tag-stdlib tag-uart">
+
+					<div id="header-about">
+
+	                <h1>Using Newlib in ARM bare metal&nbsp;programs </h1>
+
+	                </div>
+
+					<div class="date-comments">
+
+				    <p class="fl">
+
+
+					    <em>Posted on 2010/12/16</em>
+
+					    
+					</p>
+
+				    <p class="fr"><span class="comments">
+
+					    
+		                      <a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comments">24</a>
+
+						
+					</span></p>
+
+			        </div>
+
+					<div class="clear"></div>
+
+					<br>
+
+					<div class="entry">
+
+	                	
+						<p>When dealing with embedded software, I often find useful to have the standard C functions we all learn during our first programming course: <code>printf</code>, <code>malloc</code>, <code>getchar</code>, <code>strncpy</code>, …<br>
+A common way to have them is using <a href="http://sourceware.org/newlib/">Newlib</a>. Newlib is an implementation of the standard C library that is specifically thought to run somewhere with low resources and undefined hardware. The idea of Newlib is to implement the hardware-independent parts of the standard C library and rely on few low-level system calls that must be implemented with the target hardware in mind.</p>
+<p>I compiled Newlib with the CodeSourcery ARM compiler for bare-metal targets: <a href="http://www.codesourcery.com/sgpp/lite/arm/portal/release1592">Sourcery G++ Lite 2010.09-51</a>. Once the toolchain is installed, the commands I used to download compile Newlib are:</p>
+<div><div id="highlighter_841369" class="syntaxhighlighter  plain"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">$ wget <a href="ftp://sources.redhat.com/pub/newlib/newlib-1.18.0.tar.gz">ftp://sources.redhat.com/pub/newlib/newlib-1.18.0.tar.gz</a></code></div><div class="line number2 index1 alt1"><code class="plain plain">$ tar xzf newlib-1.18.0.tar.gz</code></div><div class="line number3 index2 alt2"><code class="plain plain">$ cd newlib-1.18.0/</code></div><div class="line number4 index3 alt1"><code class="plain plain">$ ./configure --target arm-none-eabi --disable-newlib-supplied-syscalls</code></div><div class="line number5 index4 alt2"><code class="plain plain">$ make</code></div><div class="line number6 index5 alt1"><code class="plain plain">$ cd ..</code></div></div></td></tr></tbody></table></div></div>
+<p>The “<code>--disable-newlib-supplied-syscalls</code>” option is necessary because otherwise Newlib compiles some pre-defined libraries for ARM that are useful in conjunction with debug features such as the RDI monitor. Many different outputs are compiled inside the <code>arm-none-eabi</code> subdirectory, but in particular the “<code>libc.a</code>” archive in the <code>newlib</code> directory is the one I use.</p>
+<p>As an example, I want to compile the following “<code>test.c</code>” program:</p>
+<div><div id="highlighter_705419" class="syntaxhighlighter  cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp preprocessor">#include</code></div><div class="line number2 index1 alt1"><code class="cpp preprocessor">#include &lt;stdlib.h&gt;</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="cpp keyword bold">extern</code> <code class="cpp color1 bold">char</code> <code class="cpp plain">*heap_end; </code><code class="cpp comments">/* Defined in syscalls.c */</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="cpp keyword bold">void</code> <code class="cpp plain">c_entry() {</code></div><div class="line number7 index6 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp color1 bold">char</code> <code class="cpp plain">c;</code></div><div class="line number8 index7 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp color1 bold">char</code> <code class="cpp plain">*ptr = NULL;</code></div><div class="line number9 index8 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp color1 bold">size_t</code> <code class="cpp plain">alloc_size = 1;</code></div><div class="line number10 index9 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">do</code> <code class="cpp plain">{</code></div><div class="line number11 index10 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">c =</code><code class="cpp functions bold">getchar</code><code class="cpp plain">();</code></div><div class="line number12 index11 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"%d: %c\n"</code><code class="cpp plain">, c, c);</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">ptr = </code><code class="cpp functions bold">realloc</code><code class="cpp plain">(ptr, alloc_size);</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(ptr == NULL) {</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">puts</code><code class="cpp plain">(</code><code class="cpp string">"Out of memory!\nProgram halting."</code><code class="cpp plain">);</code></div><div class="line number17 index16 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(;;);</code></div><div class="line number18 index17 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">} </code><code class="cpp keyword bold">else</code> <code class="cpp plain">{</code></div><div class="line number19 index18 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"new alloc of %d bytes at address 0x%X\n"</code><code class="cpp plain">, alloc_size, (unsigned </code><code class="cpp color1 bold">int</code><code class="cpp plain">)ptr);</code></div><div class="line number20 index19 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">alloc_size &lt;&lt;= 1;</code></div><div class="line number21 index20 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Heap end = 0x%X\n"</code><code class="cpp plain">, (unsigned </code><code class="cpp color1 bold">int</code><code class="cpp plain">)heap_end);</code></div><div class="line number22 index21 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number23 index22 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">} </code><code class="cpp keyword bold">while</code> <code class="cpp plain">(1);</code></div><div class="line number24 index23 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>The program uses standard input/output functions and allocates more and more memory with <code>realloc</code>, printing some information to understand what’s going on. The idea is to use the UART serial port as the input/output, and monitor how the memory is managed. The <code>heap_end</code> variable is something that I will implement and use later to manage the memory allocation.<br>
+The program needs at least some basic starting code “<code>startup.s</code>” that I borrow from a <a title="Hello world for bare metal ARM using QEMU" href="https://balau82.wordpress.com/2010/02/28/hello-world-for-bare-metal-arm-using-qemu/">previous example of mine</a>:</p>
+<div><div id="highlighter_842618" class="syntaxhighlighter  plain"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">LDR sp, =stack_top</code></div><div class="line number2 index1 alt1"><code class="plain plain">BL c_entry</code></div><div class="line number3 index2 alt2"><code class="plain plain">B .</code></div></div></td></tr></tbody></table></div></div>
+<p>And the linker script “<code>test.ld</code>” again is a modified version from <a title="Hello world for bare metal ARM using QEMU" href="https://balau82.wordpress.com/2010/02/28/hello-world-for-bare-metal-arm-using-qemu/">this post</a>:</p>
+<div><div id="highlighter_372871" class="syntaxhighlighter  plain"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">SECTIONS</code></div><div class="line number2 index1 alt1"><code class="plain plain">{</code></div><div class="line number3 index2 alt2"><code class="plain spaces">&nbsp;</code><code class="plain plain">. = 0x10000;</code></div><div class="line number4 index3 alt1"><code class="plain spaces">&nbsp;</code><code class="plain plain">.ro : {</code></div><div class="line number5 index4 alt2"><code class="plain spaces">&nbsp;&nbsp;</code><code class="plain plain">startup.o (.text)</code></div><div class="line number6 index5 alt1"><code class="plain spaces">&nbsp;&nbsp;</code><code class="plain plain">*(.text)</code></div><div class="line number7 index6 alt2"><code class="plain spaces">&nbsp;&nbsp;</code><code class="plain plain">*(.rodata)</code></div><div class="line number8 index7 alt1"><code class="plain spaces">&nbsp;</code><code class="plain plain">}</code></div><div class="line number9 index8 alt2"><code class="plain spaces">&nbsp;</code><code class="plain plain">.rw : {</code></div><div class="line number10 index9 alt1"><code class="plain spaces">&nbsp;&nbsp;</code><code class="plain plain">*(.data)</code></div><div class="line number11 index10 alt2"><code class="plain spaces">&nbsp;&nbsp;</code><code class="plain plain">*(.bss)</code></div><div class="line number12 index11 alt1"><code class="plain spaces">&nbsp;&nbsp;</code><code class="plain plain">*(COMMON)</code></div><div class="line number13 index12 alt2"><code class="plain spaces">&nbsp;</code><code class="plain plain">}</code></div><div class="line number14 index13 alt1"><code class="plain spaces">&nbsp;</code><code class="plain plain">. = ALIGN(8);</code></div><div class="line number15 index14 alt2"><code class="plain spaces">&nbsp;</code><code class="plain plain">heap_low = .; /* for _sbrk */</code></div><div class="line number16 index15 alt1"><code class="plain spaces">&nbsp;</code><code class="plain plain">. = . + 0x10000; /* 64kB of heap memory */</code></div><div class="line number17 index16 alt2"><code class="plain spaces">&nbsp;</code><code class="plain plain">heap_top = .; /* for _sbrk */</code></div><div class="line number18 index17 alt1"><code class="plain spaces">&nbsp;</code><code class="plain plain">. = . + 0x10000; /* 64kB of stack memory */</code></div><div class="line number19 index18 alt2"><code class="plain spaces">&nbsp;</code><code class="plain plain">stack_top = .; /* for startup.s */</code></div><div class="line number20 index19 alt1"><code class="plain plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>One thing that the program needs is the <code>libgcc</code> library: it provides some basic hardware functionalities, such as the division, that are used by the compiler. If the linking phase complains about some undefined reference to “<code>__aeabi_...</code>” symbol, it probably means that there’s some problem regarding the <code>libgcc</code> library. The CodeSourcery toolchain version 2010.09-51 comes with its own version of this library inside the folder “<code>~/CodeSourcery/Sourcery_G++_Lite/lib/gcc/arm-none-eabi/4.5.1/libgcc.a</code>“; the folder may slightly change depending on the toolchain version and installation path.<br>
+If I try to compile the program with the Newlib, this is the result:</p>
+<div><div id="highlighter_965588" class="syntaxhighlighter  plain"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">$ arm-none-eabi-gcc -mcpu=cortex-a8 -I ./newlib-1.18.0/newlib/libc/include&nbsp;&nbsp; -c -o test.o test.c</code></div><div class="line number2 index1 alt1"><code class="plain plain">$ arm-none-eabi-as -mcpu=cortex-a8&nbsp; -o startup.o startup.s</code></div><div class="line number3 index2 alt2"><code class="plain plain">$ arm-none-eabi-gcc -nostdlib&nbsp; -T test.ld&nbsp; test.o startup.o&nbsp; ./newlib-1.18.0/arm-none-eabi/newlib/libc.a /home/francesco/CodeSourcery/Sourcery_G++_Lite/lib/gcc/arm-none-eabi/4.5.1/libgcc.a -o test</code></div><div class="line number4 index3 alt1"><code class="plain plain">test.o: In function `c_entry':</code></div><div class="line number5 index4 alt2"><code class="plain plain">test.c:(.text+0x10c): undefined reference to `heap_end'</code></div><div class="line number6 index5 alt1"><code class="plain plain">test.c:(.text+0x110): undefined reference to `heap_end'</code></div><div class="line number7 index6 alt2"><code class="plain plain">./newlib-1.18.0/arm-none-eabi/newlib/libc.a(lib_a-sbrkr.o): In function `_sbrk_r':</code></div><div class="line number8 index7 alt1"><code class="plain plain">/home/francesco/src/arm/newlib/newlib-1.18.0/arm-none-eabi/newlib/libc/reent/../../../.././newlib/libc/reent/sbrkr.c:60: undefined reference to `_sbrk'</code></div><div class="line number9 index8 alt2"><code class="plain plain">./newlib-1.18.0/arm-none-eabi/newlib/libc.a(lib_a-writer.o): In function `_write_r':</code></div><div class="line number10 index9 alt1"><code class="plain plain">/home/francesco/src/arm/newlib/newlib-1.18.0/arm-none-eabi/newlib/libc/reent/../../../.././newlib/libc/reent/writer.c:58: undefined reference to `_write'</code></div><div class="line number11 index10 alt2"><code class="plain plain">./newlib-1.18.0/arm-none-eabi/newlib/libc.a(lib_a-closer.o): In function `_close_r':</code></div><div class="line number12 index11 alt1"><code class="plain plain">/home/francesco/src/arm/newlib/newlib-1.18.0/arm-none-eabi/newlib/libc/reent/../../../.././newlib/libc/reent/closer.c:53: undefined reference to `_close'</code></div><div class="line number13 index12 alt2"><code class="plain plain">./newlib-1.18.0/arm-none-eabi/newlib/libc.a(lib_a-fstatr.o): In function `_fstat_r':</code></div><div class="line number14 index13 alt1"><code class="plain plain">/home/francesco/src/arm/newlib/newlib-1.18.0/arm-none-eabi/newlib/libc/reent/../../../.././newlib/libc/reent/fstatr.c:62: undefined reference to `_fstat'</code></div><div class="line number15 index14 alt2"><code class="plain plain">./newlib-1.18.0/arm-none-eabi/newlib/libc.a(lib_a-isattyr.o): In function `_isatty_r':</code></div><div class="line number16 index15 alt1"><code class="plain plain">/home/francesco/src/arm/newlib/newlib-1.18.0/arm-none-eabi/newlib/libc/reent/../../../.././newlib/libc/reent/isattyr.c:58: undefined reference to `_isatty'</code></div><div class="line number17 index16 alt2"><code class="plain plain">./newlib-1.18.0/arm-none-eabi/newlib/libc.a(lib_a-lseekr.o): In function `_lseek_r':</code></div><div class="line number18 index17 alt1"><code class="plain plain">/home/francesco/src/arm/newlib/newlib-1.18.0/arm-none-eabi/newlib/libc/reent/../../../.././newlib/libc/reent/lseekr.c:58: undefined reference to `_lseek'</code></div><div class="line number19 index18 alt2"><code class="plain plain">./newlib-1.18.0/arm-none-eabi/newlib/libc.a(lib_a-readr.o): In function `_read_r':</code></div><div class="line number20 index19 alt1"><code class="plain plain">/home/francesco/src/arm/newlib/newlib-1.18.0/arm-none-eabi/newlib/libc/reent/../../../.././newlib/libc/reent/readr.c:58: undefined reference to `_read'</code></div></div></td></tr></tbody></table></div></div>
+<p>Ignoring <code>heap_end</code> for now, the linker complains that some functions cannot be found. These functions are the system calls that must be implemented depending on the hardware. One example of a minimal implementation of these functions is <a href="http://wiki.osdev.org/Porting_Newlib">here</a>.<br>
+The “hardware” where I will make the program run is the <a href="http://wiki.qemu.org/Main_Page">QEMU</a> emulation of the Versatile Platform Baseboard <a href="http://www.arm.com/products/processors/cortex-a/cortex-a8.php">Cortex-A8</a> platform. According to the <a class="active" title="RealView® Platform Baseboard for Cortex™-A8 User Guide" href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0417c/index.html">RealView® Platform Baseboard for Cortex™-A8 User Guide</a>, there is a memory-mapped UART serial port at address <code>0x10009000</code>, and my intention is to write output and read input using this UART.<br>
+The <code>_sbrk</code> function is used to increase the memory allocated by the program; modifying slightly the minimal implementation I use the memory space between the <code>heap_low</code> and the <code>heap_top</code> symbols that I defined inside the linker script. This is my implementation of “<code>syscalls.c</code>“:</p>
+<div><div id="highlighter_440962" class="syntaxhighlighter  cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp preprocessor">#include &lt;sys/stat.h&gt;</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="cpp keyword bold">enum</code> <code class="cpp plain">{</code></div><div class="line number4 index3 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">UART_FR_RXFE = 0x10,</code></div><div class="line number5 index4 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">UART_FR_TXFF = 0x20,</code></div><div class="line number6 index5 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">UART0_ADDR = 0x10009000,</code></div><div class="line number7 index6 alt2"><code class="cpp plain">};</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="cpp preprocessor">#define UART_DR(baseaddr) (*(unsigned int *)(baseaddr))</code></div><div class="line number10 index9 alt1"><code class="cpp preprocessor">#define UART_FR(baseaddr) (*(((unsigned int *)(baseaddr))+6))</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="cpp color1 bold">int</code> <code class="cpp plain">_close(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">file) { </code><code class="cpp keyword bold">return</code> <code class="cpp plain">-1; }</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="cpp color1 bold">int</code> <code class="cpp plain">_fstat(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">file, </code><code class="cpp keyword bold">struct</code> <code class="cpp plain">stat *st) {</code></div><div class="line number15 index14 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">st-&gt;st_mode = S_IFCHR;</code></div><div class="line number16 index15 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">0;</code></div><div class="line number17 index16 alt2"><code class="cpp plain">}</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="cpp color1 bold">int</code> <code class="cpp plain">_isatty(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">file) { </code><code class="cpp keyword bold">return</code> <code class="cpp plain">1; }</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="cpp color1 bold">int</code> <code class="cpp plain">_lseek(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">file, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">ptr, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">dir) { </code><code class="cpp keyword bold">return</code> <code class="cpp plain">0; }</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2"><code class="cpp color1 bold">int</code> <code class="cpp plain">_open(</code><code class="cpp keyword bold">const</code> <code class="cpp color1 bold">char</code> <code class="cpp plain">*name, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">flags, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">mode) { </code><code class="cpp keyword bold">return</code> <code class="cpp plain">-1; }</code></div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2"><code class="cpp color1 bold">int</code> <code class="cpp plain">_read(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">file, </code><code class="cpp color1 bold">char</code> <code class="cpp plain">*ptr, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">len) {</code></div><div class="line number26 index25 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">todo;</code></div><div class="line number27 index26 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(len == 0)</code></div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">0;</code></div><div class="line number29 index28 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">while</code><code class="cpp plain">(UART_FR(UART0_ADDR) &amp; UART_FR_RXFE);</code></div><div class="line number30 index29 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">*ptr++ = UART_DR(UART0_ADDR);</code></div><div class="line number31 index30 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">for</code><code class="cpp plain">(todo = 1; todo &lt; len; todo++) {</code></div><div class="line number32 index31 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code><code class="cpp plain">(UART_FR(UART0_ADDR) &amp; UART_FR_RXFE) {</code></div><div class="line number33 index32 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">break</code><code class="cpp plain">;</code></div><div class="line number34 index33 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div><div class="line number35 index34 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">*ptr++ = UART_DR(UART0_ADDR);</code></div><div class="line number36 index35 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div><div class="line number37 index36 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">todo;</code></div><div class="line number38 index37 alt1"><code class="cpp plain">}</code></div><div class="line number39 index38 alt2">&nbsp;</div><div class="line number40 index39 alt1"><code class="cpp color1 bold">char</code> <code class="cpp plain">*heap_end = 0;</code></div><div class="line number41 index40 alt2"><code class="cpp plain">caddr_t _sbrk(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">incr) {</code></div><div class="line number42 index41 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">extern</code> <code class="cpp color1 bold">char</code> <code class="cpp plain">heap_low; </code><code class="cpp comments">/* Defined by the linker */</code></div><div class="line number43 index42 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">extern</code> <code class="cpp color1 bold">char</code> <code class="cpp plain">heap_top; </code><code class="cpp comments">/* Defined by the linker */</code></div><div class="line number44 index43 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp color1 bold">char</code> <code class="cpp plain">*prev_heap_end;</code></div><div class="line number45 index44 alt2">&nbsp;</div><div class="line number46 index45 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(heap_end == 0) {</code></div><div class="line number47 index46 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">heap_end = &amp;heap_low;</code></div><div class="line number48 index47 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div><div class="line number49 index48 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">prev_heap_end = heap_end;</code></div><div class="line number50 index49 alt1">&nbsp;</div><div class="line number51 index50 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(heap_end + incr &gt; &amp;heap_top) {</code></div><div class="line number52 index51 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp comments">/* Heap and stack collision */</code></div><div class="line number53 index52 alt2"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">(caddr_t)0;</code></div><div class="line number54 index53 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div><div class="line number55 index54 alt2">&nbsp;</div><div class="line number56 index55 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">heap_end += incr;</code></div><div class="line number57 index56 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">(caddr_t) prev_heap_end;</code></div><div class="line number58 index57 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div><div class="line number59 index58 alt2">&nbsp;</div><div class="line number60 index59 alt1"><code class="cpp color1 bold">int</code> <code class="cpp plain">_write(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">file, </code><code class="cpp color1 bold">char</code> <code class="cpp plain">*ptr, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">len) {</code></div><div class="line number61 index60 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">todo;</code></div><div class="line number62 index61 alt1">&nbsp;</div><div class="line number63 index62 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(todo = 0; todo &lt; len; todo++) {</code></div><div class="line number64 index63 alt1"><code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">UART_DR(UART0_ADDR) = *ptr++;</code></div><div class="line number65 index64 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div><div class="line number66 index65 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">len;</code></div><div class="line number67 index66 alt2"><code class="cpp spaces">&nbsp;</code><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>The compilation and emulation is done with the following commands; QEMU will open a graphic window but the terminal will accept key strokes and pass it to the emulated UART:</p>
+<div><div id="highlighter_566850" class="syntaxhighlighter  plain"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="plain plain">$ arm-none-eabi-gcc -mcpu=cortex-a8 -I ./newlib-1.18.0/newlib/libc/include&nbsp;&nbsp; -c -o test.o test.c</code></div><div class="line number2 index1 alt1"><code class="plain plain">$ arm-none-eabi-as -mcpu=cortex-a8&nbsp; -o startup.o startup.s</code></div><div class="line number3 index2 alt2"><code class="plain plain">$ arm-none-eabi-gcc -mcpu=cortex-a8 -I ./newlib-1.18.0/newlib/libc/include&nbsp;&nbsp; -c -o syscalls.o syscalls.c</code></div><div class="line number4 index3 alt1"><code class="plain plain">$ arm-none-eabi-gcc -nostdlib&nbsp; -T test.ld&nbsp;&nbsp; test.o startup.o syscalls.o&nbsp; ./newlib-1.18.0/arm-none-eabi/newlib/libc.a&nbsp;&nbsp; ~/CodeSourcery/Sourcery_G++_Lite/lib/gcc/arm-none-eabi/4.5.1/libgcc.a&nbsp; -o test</code></div><div class="line number5 index4 alt2"><code class="plain plain">$ arm-none-eabi-objcopy -O binary test test.bin</code></div><div class="line number6 index5 alt1"><code class="plain plain">$ qemu-system-arm -M realview-pb-a8 -serial stdio -kernel test.bin</code></div><div class="line number7 index6 alt2"><code class="plain plain">97: a</code></div><div class="line number8 index7 alt1"><code class="plain plain">new alloc of 1 bytes at address 0x1D280</code></div><div class="line number9 index8 alt2"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number10 index9 alt1"><code class="plain plain">98: b</code></div><div class="line number11 index10 alt2"><code class="plain plain">new alloc of 2 bytes at address 0x1D280</code></div><div class="line number12 index11 alt1"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number13 index12 alt2"><code class="plain plain">99: c</code></div><div class="line number14 index13 alt1"><code class="plain plain">new alloc of 4 bytes at address 0x1D280</code></div><div class="line number15 index14 alt2"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number16 index15 alt1"><code class="plain plain">100: d</code></div><div class="line number17 index16 alt2"><code class="plain plain">new alloc of 8 bytes at address 0x1D280</code></div><div class="line number18 index17 alt1"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number19 index18 alt2"><code class="plain plain">97: a</code></div><div class="line number20 index19 alt1"><code class="plain plain">new alloc of 16 bytes at address 0x1D280</code></div><div class="line number21 index20 alt2"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number22 index21 alt1"><code class="plain plain">98: b</code></div><div class="line number23 index22 alt2"><code class="plain plain">new alloc of 32 bytes at address 0x1D280</code></div><div class="line number24 index23 alt1"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number25 index24 alt2"><code class="plain plain">99: c</code></div><div class="line number26 index25 alt1"><code class="plain plain">new alloc of 64 bytes at address 0x1D280</code></div><div class="line number27 index26 alt2"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number28 index27 alt1"><code class="plain plain">100: d</code></div><div class="line number29 index28 alt2"><code class="plain plain">new alloc of 128 bytes at address 0x1D280</code></div><div class="line number30 index29 alt1"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number31 index30 alt2"><code class="plain plain">97: a</code></div><div class="line number32 index31 alt1"><code class="plain plain">new alloc of 256 bytes at address 0x1D280</code></div><div class="line number33 index32 alt2"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number34 index33 alt1"><code class="plain plain">98: b</code></div><div class="line number35 index34 alt2"><code class="plain plain">new alloc of 512 bytes at address 0x1D280</code></div><div class="line number36 index35 alt1"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number37 index36 alt2"><code class="plain plain">99: c</code></div><div class="line number38 index37 alt1"><code class="plain plain">new alloc of 1024 bytes at address 0x1D280</code></div><div class="line number39 index38 alt2"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number40 index39 alt1"><code class="plain plain">100: d</code></div><div class="line number41 index40 alt2"><code class="plain plain">new alloc of 2048 bytes at address 0x1D280</code></div><div class="line number42 index41 alt1"><code class="plain plain">Heap end = 0x1E000</code></div><div class="line number43 index42 alt2"><code class="plain plain">97: a</code></div><div class="line number44 index43 alt1"><code class="plain plain">new alloc of 4096 bytes at address 0x1D280</code></div><div class="line number45 index44 alt2"><code class="plain plain">Heap end = 0x20000</code></div><div class="line number46 index45 alt1"><code class="plain plain">98: b</code></div><div class="line number47 index46 alt2"><code class="plain plain">new alloc of 8192 bytes at address 0x1D280</code></div><div class="line number48 index47 alt1"><code class="plain plain">Heap end = 0x20000</code></div><div class="line number49 index48 alt2"><code class="plain plain">99: c</code></div><div class="line number50 index49 alt1"><code class="plain plain">new alloc of 16384 bytes at address 0x1D280</code></div><div class="line number51 index50 alt2"><code class="plain plain">Heap end = 0x25000</code></div><div class="line number52 index51 alt1"><code class="plain plain">100: d</code></div><div class="line number53 index52 alt2"><code class="plain plain">Out of memory!</code></div><div class="line number54 index53 alt1"><code class="plain plain">Program halting.</code></div></div></td></tr></tbody></table></div></div>
+<p>Each keystroke the programs tries to allocate more and more memory until the heap is consumed.</p>
+<p>It’s worth noting that the resulting binary’s size, that includes some relevant standard C functions, is about 52KB.</p>
+<p>One big part that is missing from the standard C library is the file I/O functions, but in order to work it needs a filesystem implementation and some storage. One small improvement of my example could be the opening of the other serial ports using the open function and some fixed names such as UART0, UART1 and UART2 to associate a file descriptor with a hardware peripheral, and use it accordingly.</p>
+<p>See also:</p>
+<ul>
+<li><a href="http://www.eetimes.com/discussion/other/4024637/Embedding-with-GNU-newlib">http://www.eetimes.com/discussion/other/4024637/Embedding-with-GNU-newlib</a></li>
+</ul>
+		<div class="wpcnt">
+			<div class="wpa wpmrec">
+				<a class="wpa-about" href="https://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+				<div class="u">
+					<script type="text/javascript">
+					(function(g){g.__ATA.initAd({sectionId:26942, width:300, height:250});})(window);
+					</script><div id="automattic-id-9975" data-section="26942" style="width:300px; height:250px;"></div>
+				</div>
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><div class="sd-content"><ul><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-701" class="share-google-plus-1 sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=google-plus-1&nb=1" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-701" class="share-twitter sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=twitter&nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=reddit&nb=1" target="_blank" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-701" class="share-facebook sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=facebook&nb=1" target="_blank" title="Share on Facebook"><span>Facebook<span class="share-count">1</span></span></a></li><li class="share-end"></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-701" class="share-pinterest sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=pinterest&nb=1" target="_blank" title="Click to share on Pinterest"><span>Pinterest</span></a></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=tumblr&nb=1" target="_blank" title="Click to share on Tumblr"><span>Tumblr</span></a></li><li class="share-end"></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-701" class="share-linkedin sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=linkedin&nb=1" target="_blank" title="Click to share on LinkedIn"><span>LinkedIn</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=pocket&nb=1" target="_blank" title="Click to share on Pocket"><span>Pocket</span></a></li><li class="share-end"></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/?share=email&nb=1" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#print" target="_blank" title="Click to print"><span>Print</span></a></li><li class="share-end"></li><li class="share-end"></li></ul></div></div></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-6718912-701-56616c7e36911" data-src="//widgets.wp.com/likes/#blog_id=6718912&amp;post_id=701&amp;origin=balau82.wordpress.com&amp;obj_id=6718912-701-56616c7e36911" data-name="like-post-frame-6718912-701-56616c7e36911"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-6718912-701-56616c7e36911" height="55px" width="100%" frameborder="0" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource(9).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-visual"><div class="jp-relatedposts-post jp-relatedposts-post0 jp-relatedposts-post-nothumbs" data-post-id="892" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="https://balau82.wordpress.com/2011/09/03/using-codesourcery-bare-metal-toolchain-for-cortex-m3/" title="Using CodeSourcery bare metal toolchain for Cortex-M3
+
+Using the CodeSourcery arm-none-eabi toolchain to compile a minimal &quot;Hello World&quot; example for Stellaris lm3s6965 microcontroller. The microcontroller is emulated through QEMU and the output is written to a serial port." rel="nofollow" data-origin="701" data-position="0"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://balau82.wordpress.com/2011/09/03/using-codesourcery-bare-metal-toolchain-for-cortex-m3/" title="Using CodeSourcery bare metal toolchain for Cortex-M3
+
+Using the CodeSourcery arm-none-eabi toolchain to compile a minimal &quot;Hello World&quot; example for Stellaris lm3s6965 microcontroller. The microcontroller is emulated through QEMU and the output is written to a serial port." rel="nofollow" data-origin="701" data-position="0">Using CodeSourcery bare metal toolchain for Cortex-M3</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14286em;">Using the CodeSourcery arm-none-eabi toolchain to compile a minimal "Hello World" example for Stellaris lm3s6965 microcontroller. The microcontroller is emulated through QEMU and the output is written to a serial port.</p><p class="jp-relatedposts-post-context">In "Embedded"</p></div><div class="jp-relatedposts-post jp-relatedposts-post1 jp-relatedposts-post-nothumbs" data-post-id="696" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="https://balau82.wordpress.com/2010/12/05/using-ubuntu-arm-cross-compiler-for-bare-metal-programming/" title="Using Ubuntu ARM cross-compiler for bare metal programming
+
+Ubuntu 10.10 Maverick Meerkat includes an ARM cross-compiler to compile programs for Linux. The compiler can also be used for bare-metal programming with a few arrangements." rel="nofollow" data-origin="701" data-position="1"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://balau82.wordpress.com/2010/12/05/using-ubuntu-arm-cross-compiler-for-bare-metal-programming/" title="Using Ubuntu ARM cross-compiler for bare metal programming
+
+Ubuntu 10.10 Maverick Meerkat includes an ARM cross-compiler to compile programs for Linux. The compiler can also be used for bare-metal programming with a few arrangements." rel="nofollow" data-origin="701" data-position="1">Using Ubuntu ARM cross-compiler for bare metal programming</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14286em;">Ubuntu 10.10 Maverick Meerkat includes an ARM cross-compiler to compile programs for Linux. The compiler can also be used for bare-metal programming with a few arrangements.</p><p class="jp-relatedposts-post-context">In "Embedded"</p></div><div class="jp-relatedposts-post jp-relatedposts-post2 jp-relatedposts-post-nothumbs" data-post-id="396" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="https://balau82.wordpress.com/2010/02/14/simplest-bare-metal-program-for-arm/" title="Simplest bare metal program for ARM
+
+A simple example of bare metal programming for ARM926EJ-S core using the free open source Codesourcery toolchain based on GNU gcc." rel="nofollow" data-origin="701" data-position="2"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://balau82.wordpress.com/2010/02/14/simplest-bare-metal-program-for-arm/" title="Simplest bare metal program for ARM
+
+A simple example of bare metal programming for ARM926EJ-S core using the free open source Codesourcery toolchain based on GNU gcc." rel="nofollow" data-origin="701" data-position="2">Simplest bare metal program for ARM</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14286em;">A simple example of bare metal programming for ARM926EJ-S core using the free open source Codesourcery toolchain based on GNU gcc.</p><p class="jp-relatedposts-post-context">In "Embedded"</p></div></div></div></div>
+						
+                        <div class="tags">Tagged: <em><a href="https://balau82.wordpress.com/tag/arm/" rel="tag">ARM</a>, <a href="https://balau82.wordpress.com/tag/arm-none-eabi/" rel="tag">arm-none-eabi</a>, <a href="https://balau82.wordpress.com/tag/bare-metal/" rel="tag">bare metal</a>, <a href="https://balau82.wordpress.com/tag/codesourcery/" rel="tag">codesourcery</a>, <a href="https://balau82.wordpress.com/tag/cortex/" rel="tag">cortex</a>, <a href="https://balau82.wordpress.com/tag/cortex-a8/" rel="tag">cortex-A8</a>, <a href="https://balau82.wordpress.com/tag/gcc/" rel="tag">gcc</a>, <a href="https://balau82.wordpress.com/tag/libgcc/" rel="tag">libgcc</a>, <a href="https://balau82.wordpress.com/tag/malloc/" rel="tag">malloc</a>, <a href="https://balau82.wordpress.com/tag/newlib/" rel="tag">newlib</a>, <a href="https://balau82.wordpress.com/tag/qemu/" rel="tag">qemu</a>, <a href="https://balau82.wordpress.com/tag/stdio/" rel="tag">stdio</a>, <a href="https://balau82.wordpress.com/tag/stdlib/" rel="tag">stdlib</a>, <a href="https://balau82.wordpress.com/tag/uart/" rel="tag">uart</a></em></div>
+                        <div class="categories">Posted in: <em><a href="https://balau82.wordpress.com/category/software/embedded-software/" rel="category tag">Embedded</a></em></div>
+
+					</div>
+
+					<div id="nav-below" class="navigation">
+
+						<div class="nav-previous"><a href="https://balau82.wordpress.com/2010/12/05/using-ubuntu-arm-cross-compiler-for-bare-metal-programming/" rel="prev">← Using Ubuntu ARM cross-compiler for bare metal&nbsp;programming</a></div>
+
+						<div class="nav-next"><a href="https://balau82.wordpress.com/2010/12/28/coding-styles-comparison-in-the-open-source-software-world/" rel="next">Coding styles comparison in the Open Source Software&nbsp;world →</a></div>
+
+					</div><!-- #nav-below -->
+
+					<div class="fix"></div>
+
+				</div>
+
+	            <div class="fix"></div>
+
+				<div id="comments">
+
+					
+
+<!-- You can start editing here. -->
+
+
+
+	
+	<div class="commh2">24 Responses  “Using Newlib in ARM bare metal&nbsp;programs” → </div>
+
+
+	<ol class="commentlist snap_preview">
+
+	
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-1581">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/dc371e459acc3c043670836edffd94a6" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-dc371e459acc3c043670836edffd94a6-0"><br>
+
+					<p class="authorcomment">Vignesh<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1581">2012/04/22</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Hi,</p>
+<p>Thanks for your wonderful tutorials . These provide me a start up platform for learning ARM programming . I want to understand more on the Linker file and startup concepts . Is there any good tutorials for further readings</p>
+<p>Thanks in advance</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-1582">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-0"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1582">2012/04/22</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>A good and complete tutorial is here: <a href="http://www.embedded.com/200000632" rel="nofollow">Building bare metal ARM with GNU</a><br>
+If you want a reference for the linker scripts, I need nothing more than GNU ld manual: <a href="http://sourceware.org/binutils/docs/ld/index.html" rel="nofollow">Using ld</a></p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-1636">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/dc371e459acc3c043670836edffd94a6" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-dc371e459acc3c043670836edffd94a6-1"><br>
+
+					<p class="authorcomment">Bala<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1636">2012/05/06</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Hi ,</p>
+<p>Thanks for the tutorial .I understand that “-I ./newlib-1.18.0/newlib/libc/include” option is used to point the header files included in  the file . But to my surprise I could compile the code without this option and still get the result . I want to know how compiler manages this</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-1637">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-1"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1637">2012/05/06</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>The compiler probably includes the Standard C Library headers in “<code>/usr/include/</code>“, which are similar to the ones in <code>newlib</code>. In my case the compiler doesn’t find the “<code>sys/stat.h</code>” file, but there’s a similar file in “<code>/usr/include/linux/stat.h</code>“.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-1738">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/1da03f71cf6f93184719938bde4cf627" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-1da03f71cf6f93184719938bde4cf627-0"><br>
+
+					<p class="authorcomment">tigerjibo<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1738">2012/07/25</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Thanks for the tutorial . I use the printf(the test float value%f\n,9.8) , test printf function float put.but the  prommer run the result is random value; but I dont konw why? whether the newlib library  printf function don’t support the float printf.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-1742">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-2"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1742">2012/07/26</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>If I add printf(“float: %f\n”, 9.8) to my example it works correctly. What have you done differently? for example:<br>
+– changing toolchain<br>
+– compiling a different version of newlib that doesn’t have float enabled by default<br>
+– reduced stack size</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-1743">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/1da03f71cf6f93184719938bde4cf627" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-1da03f71cf6f93184719938bde4cf627-1"><br>
+
+					<p class="authorcomment">tigerjibo<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1743">2012/07/27</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Thanks for your reply. I have find the bug. but I dont’t konw whther my project error or the newlib erro. I have already send my project to you by email. Please check in. Thanks for your help!.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-1780">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/4df10cf65cd39e303f87eb5df6e1778f" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-4df10cf65cd39e303f87eb5df6e1778f-0"><br>
+
+					<p class="authorcomment">Ryan<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1780">2012/08/10</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Hi,</p>
+<p>    In your tutorial, I see that you implement _read and _write function to put characters to UART port. But it does not work in my case. In order to use printf through UART, I have to implement _read_r and _write_r. Do you know how are they different? Beside, with that implementation, printf does not print anything without ‘\n’ or using fflush(stdout). Could you explain it?</p>
+<p>Thank you,<br>
+Ryan</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor even thread-even depth-1 wrap highlander-comment" id="comment-1784">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-3"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-1784">2012/08/11</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>The difference between _read and _read_r is that _read_r is “<a href="http://en.wikipedia.org/wiki/Reentrancy_%28computing%29" rel="nofollow">reentrant</a>“, which means that it can be interrupted and called again by the interruption and it will behave correctly.<br>
+See also this article: <a href="http://www.eetimes.com/discussion/guest-editor/4023922/Embedding-GNU-Newlib-Part-2" rel="nofollow">http://www.eetimes.com/discussion/guest-editor/4023922/Embedding-GNU-Newlib-Part-2</a><br>
+I don’t know why you must implement the reentrant functions instead of the normal ones, maybe it’s because during compilation the reentrant versions of the system calls are not implemented. It could be a matter of configuration before compilation or there’s no support for the target architecture.</p>
+<p>About the printf, the behavior is normal because the standard output should be buffered. If you would write the same program and compile it with gcc in a Linux environment, you will see that the printf does not print anything until a newline or a flush (which also happens when the program is closed). See here about how to change this behavior: <a href="http://www.gnu.org/software/libc/manual/html_node/Controlling-Buffering.html" rel="nofollow">Controlling Buffering</a></p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-minghuasweblog odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-2767">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/8ef6ecdd846d5f36d04af61b3c1efe4b" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-8ef6ecdd846d5f36d04af61b3c1efe4b-0"><br>
+
+					<p class="authorcomment"><a href="http://minghuasweblog.wordpress.com/" rel="external nofollow" class="url">minghuasweblog</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-2767">2013/05/27</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Reblogged this on <a href="http://minghuasweblog.wordpress.com/2013/05/27/using-newlib-in-arm-bare-metal-programs/" rel="nofollow">minghuasweblog</a> and commented:<br>
+Really great and very detailed series of artistic work on ARM and emulation. </p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-3450">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/448bf22bc89fa31e5146256cd0ce0270" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-448bf22bc89fa31e5146256cd0ce0270-0"><br>
+
+					<p class="authorcomment"><a href="http://karibe.co.ke/" rel="external nofollow" class="url">Karibe</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-3450">2014/02/18</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>I am trying to use the standard stdlib functions from arm-none-eabi- installation in MKL05Z project, for  rand() , just getting a random number, I get the error</p>
+<p>sbrkr.c:(.text._sbrk_r+0xc): undefined reference to `_sbrk’<br>
+collect2: error: ld returned 1 exit status</p>
+<p>Do you think I should use newlib to help in this situation, or what alternatives do i have for pseudo random number. I have read about using diconnected Analog inputs as random number generators, but that sounds a little far fetched. Do you think there is an easy way to fix this?</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-3454">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-4"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-3454">2014/02/18</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>If you just need a pseudo random number, a very simple solution is to implement the function in this page: <a href="http://www.christianpinder.com/articles/pseudo-random-number-generation/" rel="nofollow">Game Programming: Random Number Generation</a>.<br>
+Your error is probably caused by the fact that <code>rand</code> somehow calls <code>malloc</code>. Be aware that linking the “<code>syscalls.c</code>” file that I show above should take care of this error.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-4040">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ad516503a11cd5ca435acc9bb6523536" class="avatar avatar-48 avatar-default grav-hashed grav-hijack" height="48" width="48" id="grav-ad516503a11cd5ca435acc9bb6523536-0"><br>
+
+					<p class="authorcomment">seb<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-4040">2014/04/02</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Hi Balau, hi everyone !<br>
+i tried to use newlib, but when i use this command “./configure –target arm-none-eabi –disable-newlib-supplied-syscalls”, cygwin gives me this error that i don’t understand :<br>
+sebastien_begue@pc-bureau /cygdrive/c/Documents and Settings/sebastien_begue/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_EABI<br>
+$ cd newlib-1.18.0/<br>
+sebastien_begue@pc-bureau /cygdrive/c/Documents and Settings/sebastien_begue/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_EABI/newlib-1.18.0<br>
+$ dir<br>
+ChangeLog     COPYING.LIB       ltgcc.m4      mkdep<br>
+compile       COPYING.LIBGLOSS  ltmain.sh     mkinstalldirs<br>
+config        COPYING.NEWLIB    ltoptions.m4  move-if-change<br>
+config.guess  COPYING3          ltsugar.m4    newlib<br>
+config.log    COPYING3.LIB      ltversion.m4  README<br>
+config.rpath  depcomp           MAINTAINERS   README-maintainer-mode<br>
+config.sub    etc               Makefile.def  setup.com<br>
+config-ml.in  install-sh        Makefile.in   src-release<br>
+configure     libgloss          Makefile.tpl  symlink-tree<br>
+configure.ac  libtool.m4        makefile.vms  texinfo<br>
+COPYING       lt~obsolete.m4    missing       ylwrap<br>
+sebastien_begue@pc-bureau /cygdrive/c/Documents and Settings/sebastien_begue/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_EABI/newlib-1.18.0<br>
+$ ./configure –target arm-none-eabi –disable-newlib-supplied-syscalls<br>
+checking build system type… x86_64-unknown-cygwin<br>
+checking host system type… x86_64-unknown-cygwin<br>
+checking target system type… arm-none-eabi<br>
+checking for a BSD-compatible install… /usr/bin/install -c<br>
+checking whether ln works… yes<br>
+checking whether ln -s works… yes<br>
+checking for a sed that does not truncate output… /usr/bin/sed<br>
+checking for gawk… gawk<br>
+checking to see if cat works as expected… yes<br>
+checking for gcc… gcc<br>
+checking for C compiler default output file name…<br>
+configure: error: in <code>/cygdrive/c/Documents and Settings/sebastien_begue/MentorGraphics/Sourcery_CodeBench_Lite_for_ARM_EABI/newlib-1.18.0':<br>
+configure: error: C compiler cannot create executables<br>
+See</code>config.log’ for more details.<br>
+Could you help me please ?<br>
+Regards,<br>
+Sébastien.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-4041">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ad516503a11cd5ca435acc9bb6523536" class="avatar avatar-48 avatar-default grav-hashed grav-hijack" height="48" width="48" id="grav-ad516503a11cd5ca435acc9bb6523536-1"><br>
+
+					<p class="authorcomment">seb<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-4041">2014/04/02</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>hi !<br>
+i succeed this last step, but now when i use the command “make”, cygwin gives me this error :<br>
+./standards.texi:3963: @include&nbsp;: impossible de trouver make-stds.texi<br>
+./standards.texi:4153: @include&nbsp;: impossible de trouver fdl.texi<br>
+./standards.texi:3767: @menu pointe vers un nœud «&nbsp;Makefile Conventions&nbsp;» inexistant<br>
+Do you know how correct it please ? because the files are in the good folder and i don’t know how standards.texi doesn’t find it !<br>
+thanks.<br>
+Sébastien.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor even thread-even depth-1 wrap highlander-comment" id="comment-4052">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-5"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-4052">2014/04/02</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>I never tried to compile newlib for Cygwin.<br>
+texi seems to be about documentation so it should not be necessary.<br>
+I don’t know how you solved the first problem but you can try to “make distclean” from newlib root directory and redo the <code>./configure</code> from a clean state to see if something changes.<br>
+Maybe your best bet is to ask newlib mailing list about it.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-4107">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/8d3d673223eb5b8cde46545a07e7f24e" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-8d3d673223eb5b8cde46545a07e7f24e-0"><br>
+
+					<p class="authorcomment">Balaji<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-4107">2014/04/04</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Hi Balau,</p>
+<p>With objcopy command, iam getting large size .bin than .elf. I am not getting what is the problem. Actually I need to write the boot code executing from ROM memory. Please check an attached linker file for info. I need to place the .data and .bss sections into the SRAM memory and .text ,.rodata sections into ROM. I followed the following link<br>
+<a href="http://www.bravegnu.org/gnu-eprog/c-startup.html" rel="nofollow">http://www.bravegnu.org/gnu-eprog/c-startup.html</a><br>
+But the no of object files are more.</p>
+<p>Please  suggest me if you know.</p>
+<p>Thanks<br>
+balaji</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-4108">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/8d3d673223eb5b8cde46545a07e7f24e" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-8d3d673223eb5b8cde46545a07e7f24e-1"><br>
+
+					<p class="authorcomment">Balaji<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-4108">2014/04/04</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Hi Balau</p>
+<p>Please check an attached .lds file.</p>
+<p>MEMORY { .sram : ORIGIN = 0x40200800, LENGTH = (54 * 1024) }<br>
+MEMORY { .sdram : ORIGIN = 0x80000000, LENGTH = 0x80000 }<br>
+OUTPUT_FORMAT(“elf32-littlearm”, “elf32-littlearm”, “elf32-littlearm”)<br>
+OUTPUT_ARCH(arm)<br>
+ENTRY(_start)<br>
+SECTIONS<br>
+{<br>
+ .text :<br>
+ {<br>
+  __start = .;<br>
+  arch/arm/cpu/armv7/start.o (.text*)<br>
+  *(.text*)<br>
+ } &gt;.sram<br>
+ . = ALIGN(4);<br>
+ .rodata : { *(SORT_BY_ALIGNMENT(.rodata*)) } &gt;.sram<br>
+ . = ALIGN(4);<br>
+ .data : { *(SORT_BY_ALIGNMENT(.data*)) } &gt;.sdram<br>
+ . = ALIGN(4);<br>
+ __image_copy_end = .;<br>
+ _end = .;<br>
+ .bss :<br>
+ {<br>
+  . = ALIGN(4);<br>
+  __bss_start = .;<br>
+  *(.bss*)<br>
+  . = ALIGN(4);<br>
+  __bss_end = .;<br>
+ } &gt;.sdram<br>
+}</p>
+<p>Thanks<br>
+balaji</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-4111">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-6"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-4111">2014/04/04</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>To troubleshoot this kind of problems I usually add <code>-Xlinker -Map=program.map</code> to the gcc linking phase, so that you can check the map for load addresses (LMA) and execution addresses (VMA).<br>
+You can try to use <code>AT&gt;.sram &gt;.sdram</code> for <code>.data</code> section.<br>
+Also, <code>.bss</code> probably needs a <code>(NOLOAD)</code> because you don’t need to put all those zeros in the <code>bin</code>.<br>
+For the meaning of these options refer to <code>ld</code> documentation.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment even thread-even depth-1 wrap highlander-comment" id="comment-4114">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ad516503a11cd5ca435acc9bb6523536" class="avatar avatar-48 avatar-default grav-hashed grav-hijack" height="48" width="48" id="grav-ad516503a11cd5ca435acc9bb6523536-2"><br>
+
+					<p class="authorcomment">seb<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-4114">2014/04/05</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>hi Balau !<br>
+just to say you thank you for your answer, because it brought me to the solution ! (in fact .texi are just text, and i modified them a little bit to make them adapted, even if we can just delete them without problems).<br>
+regards,<br>
+sebastien.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment odd alt thread-odd thread-alt depth-1 wrap highlander-comment" id="comment-8267">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/7c6935a1c8516d61bcfdf5bbb1dc0e85" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-7c6935a1c8516d61bcfdf5bbb1dc0e85-0"><br>
+
+					<p class="authorcomment">Balaji<br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-8267">2015/10/27</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>Hi Balau,<br>
+I just noticed this: Irrespective of what size we give when calling realloc(), sbrk is always being called with a minimum of 4096 byte increment and 4096 bytes is allocated in the heap. Is this because of byte-alignment? Is there a way to allocate any size less than this value?</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+        <li class="comment byuser comment-author-balau82 comment-author-is-site-member bypostauthor even thread-even depth-1 wrap highlander-comment" id="comment-8275">
+
+		    <div class="meta-left">
+
+				<div class="meta-wrap">
+
+					<img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48" id="grav-641a1371a45c5e27a54691b9c697743a-7"><br>
+
+					<p class="authorcomment"><a href="https://balau82.wordpress.com/" rel="external nofollow" class="url">Balau</a><br></p>
+
+					<p><small><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-8275">2015/10/28</a></small></p>
+
+				</div>
+
+			</div>
+
+			<div class="text-right ">
+
+				<p>I don’t know, it depends on malloc/realloc implementation in newlib. It’s not about byte alignment because it seems too big of an alignment. You could use a debugger to understand what’s done inside the realloc, or you could ask newlib developers in their mailing list.</p>
+
+				
+			</div>
+
+
+		<span class="comm-reply">
+
+		
+		
+		</span>
+
+		<div class="fix"></div>
+
+	    </li>
+
+<!-- #comment-## -->
+
+	</ol>
+
+
+	
+	<div class="commh2">
+	3 Trackbacks For This Post	</div>
+
+	<ol class="trackbacklist snap_preview">
+
+	
+		<li class="alt " id="trackback-933">
+
+			<cite><a href="https://balau82.wordpress.com/2011/09/03/using-codesourcery-bare-metal-toolchain-for-cortex-m3/" rel="external nofollow" class="url">Using CodeSourcery bare metal toolchain for Cortex-M3 « Balau</a></cite> →
+						<br>
+
+			<small class="commentmetadata"><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#trackback-933" title="">September 3rd, 2011 → 20:18</a> </small>
+
+			<p>[…] Using Newlib in ARM bare metal programs […]</p>
+
+		</li>
+
+	
+	
+		<li class=" " id="trackback-5905">
+
+			<cite><a href="http://mcuoneclipse.com/2014/07/12/printf-for-the-frdm-k64f-board-and-kinetis-design-studio/" rel="external nofollow" class="url">printf() for the FRDM-K64F Board and Kinetis Design Studio | MCU on Eclipse</a></cite> →
+						<br>
+
+			<small class="commentmetadata"><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#trackback-5905" title="">July 12th, 2014 → 18:21</a> </small>
+
+			<p>[…] That function is used in the context of file handles and standard I/O redirection. A good short article describes this topic here. […]</p>
+
+		</li>
+
+	
+	
+		<li class="alt " id="trackback-6238">
+
+			<cite><a href="http://main8096.wordpress.com/2014/08/15/using-newlib-in-arm-bare-metal-programs/" rel="external nofollow" class="url">Using Newlib in ARM bare metal programs | wiznet-story</a></cite> →
+						<br>
+
+			<small class="commentmetadata"><a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#trackback-6238" title="">August 16th, 2014 → 00:58</a> </small>
+
+			<p>[…] Using Newlib in ARM bare metal programs. […]</p>
+
+		</li>
+
+	
+	
+	</ol>
+
+	
+ 
+
+
+				<div id="respond" class="comment-respond js">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#respond" style="display:none;">Cancel reply</a></small></h3>				<form action="https://balau82.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="6833dbb9ed"><input type="hidden" name="_wp_http_referer" value="/2010/12/16/using-newlib-in-arm-bare-metal-programs/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; transition: none; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 588px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/ad516503a11cd5ca435acc9bb6523536(1)" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+
+
+
+<p class="form-submit" style="display: none;"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="701" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="28adbf3b1e"></p>
+<input type="hidden" name="genseq" value="1449225342">
+<p style="display: none;"></p>				<input type="hidden" id="ak_js" name="ak_js" value="1449225343775"></form>
+					</div><!-- #respond -->
+		<div style="clear: both"></div>
+
+				</div>
+
+		
+	    
+</div><!-- Content -->
+
+<div class="sidebar sidebar_right">
+	
+    	<div id="search-2" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="https://balau82.wordpress.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s">
+					<input type="submit" id="searchsubmit" value="Search">
+				</div>
+			</form></div><!--/widget--><div id="text-419679833" class="widget widget_text"><h3 class="hl">Subscribe</h3>			<div class="textwidget"><p><a href="http://feeds.feedburner.com/Balau"><img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/rss.png" alt="Entries RSS Feed">Posts</a></p>
+<p><a href="https://balau82.wordpress.com/comments/feed/"><img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/rss.png" alt="Comments RSS Feed">Comments</a></p>
+</div>
+		</div><!--/widget--><div id="gravatar-2" class="widget widget_gravatar"><h3 class="hl">Author</h3><p><a href="https://balau82.wordpress.com/about-me/"><img alt="" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/641a1371a45c5e27a54691b9c697743a(1)" class="avatar avatar-64 grav-widget-center grav-hashed" height="64" width="64" style="display: block; margin: 0 auto;" id="grav-641a1371a45c5e27a54691b9c697743a-8"></a></p>
+</div><!--/widget--><div id="pages-3" class="widget widget_pages"><h3 class="hl">Sections</h3>		<ul>
+			<li class="page_item page-item-491"><a href="https://balau82.wordpress.com/about-the-blog/">About the Blog</a></li>
+<li class="page_item page-item-2"><a href="https://balau82.wordpress.com/about-me/">About Me</a></li>
+<li class="page_item page-item-1484"><a href="https://balau82.wordpress.com/arduino-in-c/">Arduino in C</a></li>
+<li class="page_item page-item-1503"><a href="https://balau82.wordpress.com/stm32-on-linux/">STM32 on Linux</a></li>
+<li class="page_item page-item-1501"><a href="https://balau82.wordpress.com/arm-emulation/">ARM emulation</a></li>
+<li class="page_item page-item-1169"><a href="https://balau82.wordpress.com/resources/">Resources</a></li>
+<li class="page_item page-item-611"><a href="https://balau82.wordpress.com/archive/">Archives</a></li>
+		</ul>
+		</div><!--/widget--><div id="categories-419682781" class="widget widget_categories"><h3 class="hl">Categories</h3>		<ul>
+	<li class="cat-item cat-item-79"><a href="https://balau82.wordpress.com/category/hardware/">Hardware</a>
+</li>
+	<li class="cat-item cat-item-2200"><a href="https://balau82.wordpress.com/category/links/">Links</a>
+</li>
+	<li class="cat-item cat-item-581"><a href="https://balau82.wordpress.com/category/software/">Software</a>
+<ul class="children">
+	<li class="cat-item cat-item-1275993"><a href="https://balau82.wordpress.com/category/software/embedded-software/">Embedded</a>
+</li>
+	<li class="cat-item cat-item-22"><a href="https://balau82.wordpress.com/category/software/internet/">Internet</a>
+</li>
+	<li class="cat-item cat-item-28252"><a href="https://balau82.wordpress.com/category/software/security-software/">Security</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-30025"><a href="https://balau82.wordpress.com/category/working/">Working</a>
+</li>
+		</ul>
+</div><!--/widget--><div id="top-posts-3" class="widget widget_top-posts"><h3 class="hl">Top Posts &amp; Pages</h3><ul><li><a href="https://balau82.wordpress.com/2011/03/29/programming-arduino-uno-in-pure-c/" class="bump-view" data-bump-view="tp">Programming Arduino Uno in pure C</a></li>
+<li><a href="https://balau82.wordpress.com/2010/06/28/simplest-rpg-game-in-python/" class="bump-view" data-bump-view="tp">Simplest RPG, in Python</a></li>
+<li><a href="https://balau82.wordpress.com/2010/02/14/simplest-bare-metal-program-for-arm/" class="bump-view" data-bump-view="tp">Simplest bare metal program for ARM</a></li>
+<li><a href="https://balau82.wordpress.com/2010/02/28/hello-world-for-bare-metal-arm-using-qemu/" class="bump-view" data-bump-view="tp">Hello world for bare metal ARM using QEMU</a></li>
+<li><a href="https://balau82.wordpress.com/2012/03/31/compile-linux-kernel-3-2-for-arm-and-emulate-with-qemu/" class="bump-view" data-bump-view="tp">Compile Linux kernel 3.2 for ARM and emulate with QEMU</a></li>
+<li><a href="https://balau82.wordpress.com/2010/04/12/booting-linux-with-u-boot-on-qemu-arm/" class="bump-view" data-bump-view="tp">Booting Linux with U-Boot on QEMU ARM</a></li>
+<li><a href="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/Using Newlib in ARM bare metal programs _ Freedom Embedded.html" class="bump-view" data-bump-view="tp">Using Newlib in ARM bare metal programs</a></li>
+<li><a href="https://balau82.wordpress.com/2010/03/10/u-boot-for-arm-on-qemu/" class="bump-view" data-bump-view="tp">U-boot for ARM on QEMU</a></li>
+<li><a href="https://balau82.wordpress.com/2010/03/22/compiling-linux-kernel-for-qemu-arm-emulator/" class="bump-view" data-bump-view="tp">Compiling Linux kernel for QEMU ARM emulator</a></li>
+<li><a href="https://balau82.wordpress.com/arm-emulation/" class="bump-view" data-bump-view="tp">ARM emulation</a></li>
+</ul></div><!--/widget--><div id="wp_tag_cloud-2" class="widget wp_widget_tag_cloud"><h3 class="hl">Tags</h3><div style="overflow:hidden"><a href="https://balau82.wordpress.com/tag/android/" class="tag-link-641922" title="15 topics" style="font-size: 13.203539823009pt;">android</a>
+<a href="https://balau82.wordpress.com/tag/ansi-c/" class="tag-link-234621" title="13 topics" style="font-size: 12.58407079646pt;">ansi c</a>
+<a href="https://balau82.wordpress.com/tag/app/" class="tag-link-232047" title="6 topics" style="font-size: 8.8672566371681pt;">app</a>
+<a href="https://balau82.wordpress.com/tag/arduino/" class="tag-link-134289" title="32 topics" style="font-size: 17.16814159292pt;">arduino</a>
+<a href="https://balau82.wordpress.com/tag/arduino-uno/" class="tag-link-43035356" title="5 topics" style="font-size: 8pt;">arduino uno</a>
+<a href="https://balau82.wordpress.com/tag/arm/" class="tag-link-255243" title="57 topics" style="font-size: 20.141592920354pt;">ARM</a>
+<a href="https://balau82.wordpress.com/tag/arm-none-eabi/" class="tag-link-47787535" title="6 topics" style="font-size: 8.8672566371681pt;">arm-none-eabi</a>
+<a href="https://balau82.wordpress.com/tag/avr/" class="tag-link-484647" title="6 topics" style="font-size: 8.8672566371681pt;">avr</a>
+<a href="https://balau82.wordpress.com/tag/backup/" class="tag-link-5469" title="5 topics" style="font-size: 8pt;">backup</a>
+<a href="https://balau82.wordpress.com/tag/bare-metal/" class="tag-link-7687296" title="14 topics" style="font-size: 12.955752212389pt;">bare metal</a>
+<a href="https://balau82.wordpress.com/tag/boot/" class="tag-link-342645" title="6 topics" style="font-size: 8.8672566371681pt;">boot</a>
+<a href="https://balau82.wordpress.com/tag/busybox/" class="tag-link-801641" title="5 topics" style="font-size: 8pt;">busybox</a>
+<a href="https://balau82.wordpress.com/tag/c/" class="tag-link-2426" title="5 topics" style="font-size: 8pt;">c</a>
+<a href="https://balau82.wordpress.com/tag/codesourcery/" class="tag-link-12268065" title="15 topics" style="font-size: 13.203539823009pt;">codesourcery</a>
+<a href="https://balau82.wordpress.com/tag/cortex-m3/" class="tag-link-14620602" title="11 topics" style="font-size: 11.716814159292pt;">cortex-m3</a>
+<a href="https://balau82.wordpress.com/tag/coursera/" class="tag-link-76917337" title="5 topics" style="font-size: 8pt;">coursera</a>
+<a href="https://balau82.wordpress.com/tag/debian/" class="tag-link-428" title="27 topics" style="font-size: 16.300884955752pt;">debian</a>
+<a href="https://balau82.wordpress.com/tag/debug/" class="tag-link-28136" title="10 topics" style="font-size: 11.221238938053pt;">debug</a>
+<a href="https://balau82.wordpress.com/tag/debugging/" class="tag-link-70886" title="12 topics" style="font-size: 12.088495575221pt;">debugging</a>
+<a href="https://balau82.wordpress.com/tag/eda/" class="tag-link-112821" title="6 topics" style="font-size: 8.8672566371681pt;">eda</a>
+<a href="https://balau82.wordpress.com/tag/electronics/" class="tag-link-7334" title="11 topics" style="font-size: 11.716814159292pt;">electronics</a>
+<a href="https://balau82.wordpress.com/tag/embedded/" class="tag-link-28627" title="16 topics" style="font-size: 13.575221238938pt;">embedded</a>
+<a href="https://balau82.wordpress.com/tag/encryption/" class="tag-link-6474" title="12 topics" style="font-size: 12.088495575221pt;">encryption</a>
+<a href="https://balau82.wordpress.com/tag/fake-dawn/" class="tag-link-102687912" title="5 topics" style="font-size: 8pt;">fake dawn</a>
+<a href="https://balau82.wordpress.com/tag/firefox/" class="tag-link-45" title="9 topics" style="font-size: 10.725663716814pt;">firefox</a>
+<a href="https://balau82.wordpress.com/tag/fpga/" class="tag-link-28628" title="7 topics" style="font-size: 9.4867256637168pt;">fpga</a>
+<a href="https://balau82.wordpress.com/tag/ftdi/" class="tag-link-6524106" title="7 topics" style="font-size: 9.4867256637168pt;">ftdi</a>
+<a href="https://balau82.wordpress.com/tag/gcc/" class="tag-link-185469" title="23 topics" style="font-size: 15.433628318584pt;">gcc</a>
+<a href="https://balau82.wordpress.com/tag/gdb/" class="tag-link-320749" title="11 topics" style="font-size: 11.716814159292pt;">gdb</a>
+<a href="https://balau82.wordpress.com/tag/gnu/" class="tag-link-52113" title="23 topics" style="font-size: 15.433628318584pt;">gnu</a>
+<a href="https://balau82.wordpress.com/tag/google/" class="tag-link-81" title="16 topics" style="font-size: 13.575221238938pt;">google</a>
+<a href="https://balau82.wordpress.com/tag/hacking/" class="tag-link-1816" title="8 topics" style="font-size: 10.106194690265pt;">hacking</a>
+<a href="https://balau82.wordpress.com/tag/hardware/" class="tag-link-79" title="7 topics" style="font-size: 9.4867256637168pt;">Hardware</a>
+<a href="https://balau82.wordpress.com/tag/hdl/" class="tag-link-193967" title="11 topics" style="font-size: 11.716814159292pt;">hdl</a>
+<a href="https://balau82.wordpress.com/tag/howto/" class="tag-link-1921" title="7 topics" style="font-size: 9.4867256637168pt;">howto</a>
+<a href="https://balau82.wordpress.com/tag/internet-of-things/" class="tag-link-780658" title="9 topics" style="font-size: 10.725663716814pt;">internet of things</a>
+<a href="https://balau82.wordpress.com/tag/iot/" class="tag-link-2121118" title="6 topics" style="font-size: 8.8672566371681pt;">iot</a>
+<a href="https://balau82.wordpress.com/tag/ip-xact/" class="tag-link-17688909" title="5 topics" style="font-size: 8pt;">ip-xact</a>
+<a href="https://balau82.wordpress.com/tag/java/" class="tag-link-1017" title="7 topics" style="font-size: 9.4867256637168pt;">java</a>
+<a href="https://balau82.wordpress.com/tag/jtag/" class="tag-link-344281" title="17 topics" style="font-size: 13.946902654867pt;">jtag</a>
+<a href="https://balau82.wordpress.com/tag/jtagduino/" class="tag-link-74207920" title="5 topics" style="font-size: 8pt;">jtagduino</a>
+<a href="https://balau82.wordpress.com/tag/kernel/" class="tag-link-2428" title="20 topics" style="font-size: 14.690265486726pt;">kernel</a>
+<a href="https://balau82.wordpress.com/tag/linker-script/" class="tag-link-2523889" title="5 topics" style="font-size: 8pt;">linker script</a>
+<a href="https://balau82.wordpress.com/tag/linux/" class="tag-link-610" title="80 topics" style="font-size: 22pt;">linux</a>
+<a href="https://balau82.wordpress.com/tag/microcontroller/" class="tag-link-320213" title="8 topics" style="font-size: 10.106194690265pt;">microcontroller</a>
+<a href="https://balau82.wordpress.com/tag/microcontrollers/" class="tag-link-139916" title="9 topics" style="font-size: 10.725663716814pt;">microcontrollers</a>
+<a href="https://balau82.wordpress.com/tag/nucleo/" class="tag-link-363251" title="5 topics" style="font-size: 8pt;">nucleo</a>
+<a href="https://balau82.wordpress.com/tag/olimex/" class="tag-link-6524104" title="9 topics" style="font-size: 10.725663716814pt;">olimex</a>
+<a href="https://balau82.wordpress.com/tag/opencores/" class="tag-link-28551710" title="6 topics" style="font-size: 8.8672566371681pt;">opencores</a>
+<a href="https://balau82.wordpress.com/tag/openocd/" class="tag-link-6524105" title="15 topics" style="font-size: 13.203539823009pt;">openocd</a>
+<a href="https://balau82.wordpress.com/tag/openrisc/" class="tag-link-13845054" title="6 topics" style="font-size: 8.8672566371681pt;">openrisc</a>
+<a href="https://balau82.wordpress.com/tag/open-source/" class="tag-link-25" title="33 topics" style="font-size: 17.29203539823pt;">open source</a>
+<a href="https://balau82.wordpress.com/tag/open-source-hardware/" class="tag-link-1234386" title="24 topics" style="font-size: 15.681415929204pt;">open source hardware</a>
+<a href="https://balau82.wordpress.com/tag/open-source-software/" class="tag-link-3694" title="7 topics" style="font-size: 9.4867256637168pt;">open source software</a>
+<a href="https://balau82.wordpress.com/tag/pcb/" class="tag-link-304802" title="5 topics" style="font-size: 8pt;">pcb</a>
+<a href="https://balau82.wordpress.com/tag/privacy/" class="tag-link-3279" title="5 topics" style="font-size: 8pt;">privacy</a>
+<a href="https://balau82.wordpress.com/tag/programming/" class="tag-link-196" title="9 topics" style="font-size: 10.725663716814pt;">programming</a>
+<a href="https://balau82.wordpress.com/tag/python/" class="tag-link-832" title="17 topics" style="font-size: 13.946902654867pt;">python</a>
+<a href="https://balau82.wordpress.com/tag/qemu/" class="tag-link-332303" title="24 topics" style="font-size: 15.681415929204pt;">qemu</a>
+<a href="https://balau82.wordpress.com/tag/security/" class="tag-link-801" title="16 topics" style="font-size: 13.575221238938pt;">security</a>
+<a href="https://balau82.wordpress.com/tag/serial-port/" class="tag-link-2227056" title="8 topics" style="font-size: 10.106194690265pt;">serial port</a>
+<a href="https://balau82.wordpress.com/tag/soc/" class="tag-link-4959" title="6 topics" style="font-size: 8.8672566371681pt;">soc</a>
+<a href="https://balau82.wordpress.com/tag/soft-work/" class="tag-link-17199712" title="8 topics" style="font-size: 10.106194690265pt;">soft work</a>
+<a href="https://balau82.wordpress.com/tag/stm32/" class="tag-link-5856945" title="15 topics" style="font-size: 13.203539823009pt;">stm32</a>
+<a href="https://balau82.wordpress.com/tag/stmicroelectronics/" class="tag-link-807610" title="14 topics" style="font-size: 12.955752212389pt;">stmicroelectronics</a>
+<a href="https://balau82.wordpress.com/tag/ted/" class="tag-link-37208" title="5 topics" style="font-size: 8pt;">ted</a>
+<a href="https://balau82.wordpress.com/tag/twitter/" class="tag-link-599182" title="5 topics" style="font-size: 8pt;">twitter</a>
+<a href="https://balau82.wordpress.com/tag/u-boot/" class="tag-link-1483373" title="6 topics" style="font-size: 8.8672566371681pt;">u-boot</a>
+<a href="https://balau82.wordpress.com/tag/uart/" class="tag-link-4497883" title="6 topics" style="font-size: 8.8672566371681pt;">uart</a>
+<a href="https://balau82.wordpress.com/tag/ubuntu/" class="tag-link-255" title="23 topics" style="font-size: 15.433628318584pt;">ubuntu</a>
+<a href="https://balau82.wordpress.com/tag/usb/" class="tag-link-57231" title="8 topics" style="font-size: 10.106194690265pt;">usb</a>
+<a href="https://balau82.wordpress.com/tag/verilog/" class="tag-link-148709" title="6 topics" style="font-size: 8.8672566371681pt;">verilog</a>
+<a href="https://balau82.wordpress.com/tag/vhdl/" class="tag-link-34743" title="5 topics" style="font-size: 8pt;">vhdl</a>
+<a href="https://balau82.wordpress.com/tag/wifi/" class="tag-link-4305" title="6 topics" style="font-size: 8.8672566371681pt;">wifi</a>
+<a href="https://balau82.wordpress.com/tag/wordpress/" class="tag-link-33" title="5 topics" style="font-size: 8pt;">wordpress</a></div></div><!--/widget--><div id="blog-stats-3" class="widget widget_blog-stats"><h3 class="hl">Blog Stats</h3>		<ul>
+			<li>1,445,937 hits</li>
+		</ul>
+		</div><!--/widget--><div id="text-419679832" class="widget widget_text"><h3 class="hl">License</h3>			<div class="textwidget"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/88x31.png"></a><br><span>Freedom Embedded</span> by <a href="https://balau82.wordpress.com/" rel="cc:attributionURL">Francesco Balducci</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-Share Alike 4.0 License</a>.</div>
+		</div><!--/widget-->
+</div>
+
+			<div class="footer footer_left">
+
+                <div class="fl"><a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com</a>.</div>
+
+				<div class="fr"><a href="https://wordpress.com/themes/inuit-types/" title="Learn more about this theme">The Inuit Types Theme</a>.</div>
+
+                <div class="fix"><!----></div>
+
+            </div>
+
+
+    </div>
+
+</div>
+
+<div class="fix"><!----></div>
+
+<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-dc371e459acc3c043670836edffd94a6">
+	</div>
+	<div class="grofile-hash-map-641a1371a45c5e27a54691b9c697743a">
+	</div>
+	<div class="grofile-hash-map-1da03f71cf6f93184719938bde4cf627">
+	</div>
+	<div class="grofile-hash-map-4df10cf65cd39e303f87eb5df6e1778f">
+	</div>
+	<div class="grofile-hash-map-8ef6ecdd846d5f36d04af61b3c1efe4b">
+	</div>
+	<div class="grofile-hash-map-448bf22bc89fa31e5146256cd0ce0270">
+	</div>
+	<div class="grofile-hash-map-d41d8cd98f00b204e9800998ecf8427e">
+	</div>
+	<div class="grofile-hash-map-8d3d673223eb5b8cde46545a07e7f24e">
+	</div>
+	<div class="grofile-hash-map-7c6935a1c8516d61bcfdf5bbb1dc0e85">
+	</div>
+	<div class="grofile-hash-map-641a1371a45c5e27a54691b9c697743a">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/balau82.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/balau82.wordpress.com\/wp-login.php?action=logout&_wpnonce=cabf6343b5","homeURL":"https:\/\/balau82.wordpress.com\/","postID":"701","gravDefault":"mystery","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource(4)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -290px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Freedom Embedded”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 498 other followers</p>
+			<p><input type="email" name="email" placeholder="Enter your email address" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="6718912">
+			<input type="hidden" name="source" value="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="3c4fb41039"><input type="hidden" name="_wp_http_referer" value="/2010/12/16/using-newlib-in-arm-bare-metal-programs/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/balau82.wordpress.com\/2010\/12\/16\/using-newlib-in-arm-bare-metal-programs\/":701};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+							<script type="text/javascript">
+				jQuery(document).on('ready', function(){
+					jQuery('body').on('click', 'a.share-pinterest', function(e){
+						e.preventDefault();
+						// Load Pinterest Bookmarklet code
+						var s = document.createElement("script");
+						s.type = "text/javascript";
+						s.src = window.location.protocol + "//assets.pinterest.com/js/pinmarklet.js?r=" + ( Math.random() * 99999999 );
+						var x = document.getElementsByTagName("script")[0];
+						x.parentNode.insertBefore(s, x);
+						// Trigger Stats
+						var s = document.createElement("script");
+						s.type = "text/javascript";
+						s.src = this + ( this.toString().indexOf( '?' ) ? '&' : '?' ) + 'js_only=1';
+						var x = document.getElementsByTagName("script")[0];
+						x.parentNode.insertBefore(s, x);
+					});
+				});
+			</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-tumblr' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-pocket' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+			
+		<iframe src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/form.js"></script>
+<script type="text/javascript" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource(5)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/saved_resource(6)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'6718912','blog_tz':'1','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'6718912','v':'wpcom','tz':'1','user_id':'0','post':'701','subd':'balau82'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhRTmIuSltuLkN1bEJKR2dOMUR6Vy5lVSVpUGxvP3hnaWd5b3MuY3JJcGNQT0VnMHMsOXA5ZiZsdiVjL2tifEh6JnR6NzBYPURJcTZLNXR5fjYvSzFsbnJdUHxQcDg5SHF0UTR1NyYvUiw3MTZ3WDBRVVA5RGxicElzTTlRd1dacDVQS1QtNCZda3FGQnErY0o5a0xoU09FNj1bfFpFeUl3R0wsaGNbdTItYlNnU3Q/QnZxUkJQJTZdSj8vXUl5LTN3ejRjcXRYOVZRTlQwbz98dFU0dyxHd2VSVDI/aVZraDQmJnQzQVdfUS8zNyxQUSZodl81YVl4N2U3SWhMQ2wwaSUtSFQ2OA=='}]);
+_stq.push([ 'clickTrackerInit', '6718912', '701' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+<!--[if lt IE 7]>
+<script src="https://s0.wp.com/wp-content/themes/pub/inuit-types/library/js/IE7.js" type="text/javascript"></script>
+<![endif]-->
+
+
+<div id="sharing_email" style="display: none;">
+		<form action="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/Using Newlib in ARM bare metal programs _ Freedom Embedded.html" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off">
+			<script> document.getElementById('jetpack-source_f_name').value = ''; </script>
+			<div class="recaptcha" id="sharing_recaptcha"></div><input type="hidden" name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo">
+			<img style="float: right; display: none" class="loading" src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a rel="nofollow" href="https://balau82.wordpress.com/2010/12/16/using-newlib-in-arm-bare-metal-programs/#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><img src="./Using Newlib in ARM bare metal programs _ Freedom Embedded_files/g.gif" id="wpstats"><a href="https://balau82.wordpress.com/about-me/" style="position: absolute; top: 345px; left: 1008.5px; z-index: 15; border: none; text-decoration: none;"></a></body></html>
