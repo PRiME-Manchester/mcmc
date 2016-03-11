@@ -139,7 +139,7 @@ LS  := \ls -l
 # List of objects making up the application. If there are other files
 # in the application, add their object file names to this variable.
 
-OBJECTS := $(APP).o
+OBJECTS := $(APP).o format.o format_fp.o
 
 
 # Primary target is an APLX file - built from the ELF
@@ -185,7 +185,7 @@ $(APP).elf: $(OBJECTS) $(SCRIPT) $(LIBRARY)
 
 $(APP).o: $(APP).c $(INC_DIR)/spinnaker.h $(INC_DIR)/sark.h \
 	  $(INC_DIR)/spin1_api.h
-	$(CC) -Wall $(CFLAGS) $(APP).c
+	$(CC) -Wall $(CFLAGS) $(APP).c format.h format_config.h format.c format_fp.c
 
 
 # Tidy and cleaning dependencies
