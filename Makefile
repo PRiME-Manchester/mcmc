@@ -23,7 +23,7 @@
 
 # Name of app (derived from C source - eg sark.c)
 
-APP := mcmc_test
+APP := mcmc_code_size
 
 # Configuration options
 

@@ -1,0 +1,71 @@
+\begin{theindex}
+
+  \item {base}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{4}
+
+  \indexspace
+
+  \item {error\+\_\+t}, \hyperpage{3}
+
+  \indexspace
+
+  \item {flags}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{4}
+
+  \indexspace
+
+  \item {gsl\+\_\+ran\+\_\+discrete\+\_\+t}, \hyperpage{3}
+
+  \indexspace
+
+  \item {len}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{4}
+
+  \indexspace
+
+  \item {n\+Chars}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{4}
+
+  \indexspace
+
+  \item {pcg32\+\_\+random\+\_\+t}, \hyperpage{3}
+  \item {prec}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{4}
+  \item {ptr}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{5}
+
+  \indexspace
+
+  \item {qual}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{5}
+
+  \indexspace
+
+  \item {repchar}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{5}
+
+  \indexspace
+
+  \item {T\+\_\+\+Format\+Spec}, \hyperpage{4}
+    \subitem {base}, \hyperpage{4}
+    \subitem {flags}, \hyperpage{4}
+    \subitem {len}, \hyperpage{4}
+    \subitem {n\+Chars}, \hyperpage{4}
+    \subitem {prec}, \hyperpage{4}
+    \subitem {ptr}, \hyperpage{5}
+    \subitem {qual}, \hyperpage{5}
+    \subitem {repchar}, \hyperpage{5}
+    \subitem {w\+\_\+frac}, \hyperpage{5}
+    \subitem {w\+\_\+int}, \hyperpage{5}
+    \subitem {width}, \hyperpage{5}
+
+  \indexspace
+
+  \item {w\+\_\+frac}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{5}
+  \item {w\+\_\+int}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{5}
+  \item {width}
+    \subitem {T\+\_\+\+Format\+Spec}, \hyperpage{5}
+
+\end{theindex}
